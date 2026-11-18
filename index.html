@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <title>Crew Directory</title>
+  <meta name="description" content="November crew directory: names, roles and TA availability." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="November Crew Directory" />
+  <meta property="og:description" content="Names grouped by role, with TA availability." />
+  <meta name="twitter:card" content="summary" />
+
+  <!-- The page uses the built-in system font (no font files or links). The skeleton is released when the app is ready. -->
+  <noscript>
+  <style>#boot-skeleton{display:none}</style></noscript>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('fonts-loading');
+      var finished = false, cap;
+      function finish() {
+        if (finished) return;
+        finished = true;
+        clearTimeout(cap);
+        root.classList.remove('fonts-loading');
+        root.classList.add('fonts-ready');
+      }
+      // The skeleton stays until the app has drawn its first screen (markAppReady), with a cap so it can never trap the page.
+      window.markAppReady = function () {
+        if (root.classList.contains('app-ready')) return;
+        root.classList.add('app-ready');
+        var sk = document.getElementById('boot-skeleton');
+        if (sk) setTimeout(function () { sk.remove(); }, 260);
+      };
+      setTimeout(window.markAppReady, 8000);
+      cap = setTimeout(finish, 3000);
+      // The page uses the built-in system font, so there is nothing to wait for here.
+      finish();
+    })();
+  </script>
+
+  <!-- html2canvas is loaded on demand when the user clicks "Save as Image" (no render-blocking vendor script) -->
+  <!-- Tailwind (browser build) generates the utility classes; no compiled CSS is stored in this file. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* Theme values only. They replace the Tailwind v4 defaults with the v3 palette and
+       radii the app was built with. Base styles (v3 reset) sit in @layer base below. */
+    @custom-variant max-nav (@media not all and (min-width: 900px));
+    @theme {
+      --color-line: #e4e4e7;
+      --color-line-soft: #f4f4f5;
+      --color-ink: #18181b;
+      --color-ink-2: #3f3f46;
+      --color-ink-3: #71717a;
+      --color-gray-50: #fafafa;
+      --color-gray-100: #f4f4f5;
+      --color-gray-200: #e4e4e7;
+      --color-gray-300: #d4d4d8;
+      --color-gray-400: #a1a1aa;
+      --color-gray-500: #71717a;
+      --color-gray-600: #52525b;
+      --color-gray-700: #3f3f46;
+      --color-gray-800: #27272a;
+      --color-gray-900: #18181b;
+      --color-red-50: #fef2f2;
+      --color-red-500: #ef4444;
+      --color-red-600: #dc2626;
+      --color-amber-100: #fef3c7;
+      --color-amber-500: #f59e0b;
+      --color-amber-800: #92400e;
+      --color-blue-500: #3b82f6;
+      --color-green-500: #22c55e;
+      --radius: 6px;
+      --radius-sm: 4px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    }
+  </style>
+  <style>
+    @layer theme, base, components, utilities;
+    @layer base {
+/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}body,html{height:100%;overflow:hidden}body{--tw-bg-opacity:1;background-color:rgb(245 246 248/var(--tw-bg-opacity,1));font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;font-size:13px;--tw-text-opacity:1;color:rgb(33 37 41/var(--tw-text-opacity,1));-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}button{cursor:pointer}.cell{border-width:1px;--tw-border-opacity:1;border-color:rgb(208 215 222/var(--tw-border-opacity,1));--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1));padding:.125rem .25rem;vertical-align:middle;line-height:1.35}.ce{margin:-.125rem -.25rem;display:inline-block;min-height:16px;width:100%;border-radius:2px;padding:.125rem .25rem;outline:2px solid transparent;outline-offset:2px;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.1s}.ce:focus{--tw-bg-opacity:1;background-color:rgb(255 249 219/var(--tw-bg-opacity,1));--tw-shadow:0 0 0 2px #fab005;--tw-shadow-colored:0 0 0 2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.meal-value{display:inline-block;width:calc(100% - 6px);text-align:center}.crew-name{text-align:center;font-weight:500}.crew-role{font-weight:600;--tw-text-opacity:1;color:rgb(224 49 49/var(--tw-text-opacity,1))}.crew-ta{--tw-text-opacity:1;color:rgb(73 80 87/var(--tw-text-opacity,1))}.crew-osco,.crew-ta{text-align:center}.crew-hrs{text-align:right;font-weight:600}.crew-meal{position:relative;padding-right:30px;text-align:center}.section-hours{text-align:right}.row-end{position:relative;padding-right:30px}.meta-input-wrap{padding:0!important;text-align:left}.live-dot{height:7px;width:7px;border-radius:9999px;--tw-bg-opacity:1;background-color:rgb(43 138 62/var(--tw-bg-opacity,1));animation:pulse 1.8s infinite}@keyframes pulse{0%,to{opacity:1}50%{opacity:.35}}.spinner{height:2rem;width:2rem;border-radius:9999px;border-width:3px;--tw-border-opacity:1;border-color:rgb(208 215 222/var(--tw-border-opacity,1));border-top-color:#343a40;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(1turn)}}.section-head{display:flex;width:100%;align-items:center;justify-content:space-between;gap:.625rem}.section-title-edit{min-width:0;flex:1 1 0%}.meta-label{white-space:nowrap;text-align:left;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1))}.meta-input{display:block;min-height:26px;width:100%;border-width:0;background-color:transparent;padding:.125rem .25rem;text-align:left;font-weight:600;outline:2px solid transparent;outline-offset:2px}.meta-input:focus{--tw-bg-opacity:1;background-color:rgb(255 249 219/var(--tw-bg-opacity,1));--tw-shadow:inset 0 0 0 2px #fab005;--tw-shadow-colored:inset 0 0 0 2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.meta-input.val{--tw-text-opacity:1;color:rgb(224 49 49/var(--tw-text-opacity,1))}.meta-day{padding-left:.25rem;text-align:left;font-weight:700}.nav-title{margin-bottom:.5rem;margin-top:.75rem;padding-left:.5rem;padding-right:.5rem;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1))}.nav-title:first-child{margin-top:0}.nav-btn{display:flex;width:100%;align-items:center;gap:.625rem;border-radius:3px;padding:.625rem .75rem;text-align:left;font-size:13px;font-weight:500;--tw-text-opacity:1;color:rgb(73 80 87/var(--tw-text-opacity,1));transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.nav-btn.active,.nav-btn:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(33 37 41/var(--tw-text-opacity,1))}.nav-btn.active{font-weight:600}.nav-icon{display:flex;height:1.75rem;width:1.75rem;flex-shrink:0;align-items:center;justify-content:center;border-radius:3px;--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1));font-size:.875rem;line-height:1.25rem}.\!btn{display:inline-flex;align-items:center;justify-content:center;gap:.375rem;border-radius:3px;border-width:1px;border-color:transparent;padding:9px .875rem;font-size:13px;font-weight:600;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.\!btn:focus{outline:2px solid transparent;outline-offset:2px}.\!btn:focus-visible{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000);--tw-ring-offset-width:2px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.375rem;border-radius:3px;border-width:1px;border-color:transparent;padding:9px .875rem;font-size:13px;font-weight:600;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.btn:focus{outline:2px solid transparent;outline-offset:2px}.btn:focus-visible{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000);--tw-ring-offset-width:2px}.btn-primary{--tw-bg-opacity:1;background-color:rgb(52 58 64/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.btn-primary:hover{--tw-bg-opacity:1;background-color:rgb(33 37 41/var(--tw-bg-opacity,1))}.btn-primary:focus-visible{--tw-ring-opacity:1;--tw-ring-color:rgb(52 58 64/var(--tw-ring-opacity,1))}.btn-secondary{--tw-border-opacity:1;border-color:rgb(208 215 222/var(--tw-border-opacity,1));--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(73 80 87/var(--tw-text-opacity,1))}.btn-secondary:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1))}.btn-secondary:focus-visible{--tw-ring-opacity:1;--tw-ring-color:rgb(209 213 219/var(--tw-ring-opacity,1))}.btn-close{display:flex;height:2rem;width:2rem;align-items:center;justify-content:center;border-radius:3px;border-width:0;background-color:transparent;padding:0;font-size:1.125rem;line-height:1.75rem;--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1));transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.btn-close:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(73 80 87/var(--tw-text-opacity,1))}.btn-section-add{flex-shrink:0;white-space:nowrap;border-radius:2px;border-width:1px;--tw-border-opacity:1;border-color:rgb(209 213 219/var(--tw-border-opacity,1));--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1));padding:.25rem .625rem;font-size:.75rem;line-height:1rem;font-weight:700;--tw-text-opacity:1;color:rgb(73 80 87/var(--tw-text-opacity,1));transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.btn-section-add:hover{--tw-border-opacity:1;border-color:rgb(156 163 175/var(--tw-border-opacity,1));--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(33 37 41/var(--tw-text-opacity,1))}.btn-row-del{position:absolute;right:.375rem;top:50%;z-index:10;display:flex;height:22px;width:22px;--tw-translate-y:-50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));align-items:center;justify-content:center;border-radius:2px;border-width:0;background-color:transparent;padding:0;--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1));opacity:0;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.btn-row-del:hover{--tw-bg-opacity:1;background-color:rgb(254 242 242/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(224 49 49/var(--tw-text-opacity,1))}.field-label{margin-bottom:.375rem;display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1))}.field-input{width:100%;border-radius:3px;border-width:1px;--tw-border-opacity:1;border-color:rgb(209 213 219/var(--tw-border-opacity,1));--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1));padding:.625rem .75rem;font-size:13px;--tw-text-opacity:1;color:rgb(33 37 41/var(--tw-text-opacity,1));outline:2px solid transparent;outline-offset:2px;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.field-input::-moz-placeholder{--tw-text-opacity:1;color:rgb(209 213 219/var(--tw-text-opacity,1))}.field-input::placeholder{--tw-text-opacity:1;color:rgb(209 213 219/var(--tw-text-opacity,1))}.field-input:focus{--tw-border-opacity:1;border-color:rgb(156 163 175/var(--tw-border-opacity,1));--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000);--tw-ring-opacity:1;--tw-ring-color:rgb(229 231 235/var(--tw-ring-opacity,1))}.is-cc{font-weight:700;--tw-text-opacity:1;color:rgb(224 49 49/var(--tw-text-opacity,1))}.visible{visibility:visible}.static{position:static}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.inset-y-0{top:0;bottom:0}.left-0{left:0}.z-10{z-index:10}.z-20{z-index:20}.z-40{z-index:40}.z-50{z-index:50}.z-\[100\]{z-index:100}.z-\[200\]{z-index:200}.-mt-px{margin-top:-1px}.mb-3{margin-bottom:.75rem}.ml-\[248px\]{margin-left:248px}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.block{display:block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-8{height:2rem}.h-9{height:2.25rem}.h-\[15px\]{height:15px}.h-\[58px\]{height:58px}.max-h-\[92vh\]{max-height:92vh}.max-h-full{max-height:100%}.min-h-0{min-height:0}.w-8{width:2rem}.w-9{width:2.25rem}.w-\[10\%\]{width:10%}.w-\[12\.5\%\]{width:12.5%}.w-\[15\%\]{width:15%}.w-\[15px\]{width:15px}.w-\[180px\]{width:180px}.w-\[20\%\]{width:20%}.w-\[248px\]{width:248px}.w-\[30\%\]{width:30%}.w-\[820px\]{width:820px}.w-full{width:100%}.min-w-0{min-width:0}.min-w-\[760px\]{min-width:760px}.max-w-\[450px\]{max-width:450px}.max-w-\[92vw\]{max-width:92vw}.max-w-full{max-width:100%}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.table-fixed{table-layout:fixed}.border-collapse{border-collapse:collapse}@keyframes modalIn{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.animate-modal-in{animation:modalIn .18s ease}.cursor-pointer{cursor:pointer}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.gap-3\.5{gap:.875rem}.gap-4{gap:1rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.overflow-auto{overflow:auto}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis}.truncate,.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:2px}.rounded-2xl{border-radius:2px}.rounded-\[9px\]{border-radius:3px}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:3px}.rounded-xl{border-radius:2px}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-t{border-top-width:1px}.border-line{--tw-border-opacity:1;border-color:rgb(208 215 222/var(--tw-border-opacity,1))}.border-line-soft{--tw-border-opacity:1;border-color:rgb(233 236 239/var(--tw-border-opacity,1))}.bg-\[\#ebfbee\]{--tw-bg-opacity:1;background-color:rgb(235 251 238/var(--tw-bg-opacity,1))}.bg-black\/25{background-color:rgba(0,0,0,.25)}.bg-black\/30{background-color:rgba(0,0,0,.3)}.bg-black\/55{background-color:rgba(0,0,0,.55)}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1))}.bg-transparent{background-color:transparent}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.from-gray-700{--tw-gradient-from:#374151 var(--tw-gradient-from-position);--tw-gradient-to:rgba(55,65,81,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.to-gray-900{--tw-gradient-to:#111827 var(--tw-gradient-to-position)}.object-contain{-o-object-fit:contain;object-fit:contain}.p-4{padding:1rem}.p-5{padding:1.25rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-\[18px\]{padding-left:18px;padding-right:18px}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3\.5{padding-top:.875rem;padding-bottom:.875rem}.py-4{padding-top:1rem;padding-bottom:1rem}.text-\[11px\]{font-size:11px}.text-\[13px\]{font-size:13px}.text-\[15px\]{font-size:15px}.text-base{font-size:1rem;line-height:1.5rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.leading-none{line-height:1}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-.025em}.text-ink-2{--tw-text-opacity:1;color:rgb(73 80 87/var(--tw-text-opacity,1))}.text-ink-3{--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1))}.text-success{--tw-text-opacity:1;color:rgb(43 138 62/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.accent-\[\#343a40\]{accent-color:#343a40}.shadow-card{--tw-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);--tw-shadow-colored:0 1px 2px var(--tw-shadow-color),0 8px 24px var(--tw-shadow-color)}.shadow-card,.shadow-lg{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-modal{--tw-shadow:0 20px 60px rgba(0,0,0,.14);--tw-shadow-colored:0 20px 60px var(--tw-shadow-color)}.shadow-modal,.shadow-modal-xl{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-modal-xl{--tw-shadow:0 24px 80px rgba(0,0,0,.2);--tw-shadow-colored:0 24px 80px var(--tw-shadow-color)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.blur{--tw-blur:blur(8px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-\[3px\]{--tw-backdrop-blur:blur(3px)}.backdrop-blur-\[3px\],.backdrop-blur-\[6px\]{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-\[6px\]{--tw-backdrop-blur:blur(6px)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}tr.row-colheader>td{position:sticky;top:-1px;z-index:5;background:#fff9db;background-clip:padding-box;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.04em;text-align:center}tr.row-colheader>td:first-child{text-align:left}tr.row-section>td{background:#e9ecef;font-weight:700;color:#343a40}tr.row-crew:hover>td{background:#fcfcfd}.btn-row-del:focus-visible,tr:hover .btn-row-del{opacity:1}@media (max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}}.sidebar-overlay{opacity:0;pointer-events:none;transition:opacity .25s ease}.sidebar-overlay.open{opacity:1;pointer-events:auto}.overlay,.preview-overlay{display:none}.overlay.open,.preview-overlay.open{display:flex}.sidebar-scroll::-webkit-scrollbar,.table-wrap::-webkit-scrollbar{width:10px;height:10px}.sidebar-scroll::-webkit-scrollbar-track,.table-wrap::-webkit-scrollbar-track{background:transparent}.sidebar-scroll::-webkit-scrollbar-thumb,.table-wrap::-webkit-scrollbar-thumb{background:#d0d7de;border-radius:3px;border:2px solid #fff}.sidebar-scroll::-webkit-scrollbar-thumb:hover,.table-wrap::-webkit-scrollbar-thumb:hover{background:#adb5bd}@media (prefers-reduced-motion:reduce){*,:after,:before{animation-duration:.01ms!important;transition-duration:.01ms!important}}@media print{body,html{overflow:visible!important;height:auto!important}.btn-row-del,.btn-section-add,.overlay,.preview-overlay,.sidebar,.sidebar-overlay,.topbar{display:none!important}.main{margin-left:0!important;width:100%!important;height:auto!important}.content{overflow:visible!important;padding:0!important}.card{box-shadow:none!important;border-radius:0!important}td{border-color:#000!important}.card-head-top{display:none!important}}.placeholder\:text-ink-3::-moz-placeholder{--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1))}.placeholder\:text-ink-3::placeholder{--tw-text-opacity:1;color:rgb(134 142 150/var(--tw-text-opacity,1))}.focus-within\:border-line:focus-within{--tw-border-opacity:1;border-color:rgb(208 215 222/var(--tw-border-opacity,1))}.focus-within\:bg-white:focus-within{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.hover\:bg-gray-50:hover{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1))}@media not all and (min-width:900px){.max-nav\:ml-0{margin-left:0}.max-nav\:inline-flex{display:inline-flex}.max-nav\:hidden{display:none}.max-nav\:max-h-\[96vh\]{max-height:96vh}.max-nav\:w-\[98vw\]{width:98vw}.max-nav\:p-4{padding:1rem}}/* preview modal: definite height so the image's max-height:100% resolves and the preview always fits fully in view */.preview-modal{height:min(92vh,calc(100vh - 40px))}@media (max-width:900px){.preview-modal{height:min(96vh,calc(100vh - 40px))}}
+    }
+  </style>
+  <style>
+    /* html2canvas 1.4.1 uses this hidden one-pixel GIF to measure text baselines.
+       Tailwind's block-image reset otherwise shifts text down in exported images. */
+    img[src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"] { display: inline !important; }
+
+    /* Keep the schedule at the existing compact-screen sizes on every device. */
+    :root{--schedule-width:688px}
+    .schedule-table{width:var(--schedule-width);min-width:var(--schedule-width);max-width:var(--schedule-width)}
+    /* Centre the schedule in its card; when it is wider than the card, the margins go to zero and it scrolls from the left. */
+    .schedule-table{margin-left:auto;margin-right:auto}
+    .schedule-table col:nth-child(1),.schedule-table col:nth-child(3){width:163.28px}
+    .schedule-table col:nth-child(2){width:180.67px}
+    .schedule-table col:nth-child(4){width:77.89px}
+    .schedule-table col:nth-child(5),.schedule-table col:nth-child(6){width:50.89px}
+    .schedule-table .ce{overflow-wrap:anywhere}
+    /* Columns keep their default width; text that is too long is cut off with an ellipsis. */
+    .schedule-table .ce,.schedule-table .section-title-edit,.schedule-table tr.row-colheader > td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal}
+
+    /* Add Group items: name and time on one line, hours preview under them, remove button on the right. */
+    .group-item-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px 8px;align-items:center;padding:8px;border:1px solid var(--ui-border,#e4e4e7);border-radius:6px;background:#fff}
+    .group-item-row .gi-name{grid-column:1/-1;min-width:0}
+    .group-item-row .gi-time{min-width:0}
+    .group-item-row .gi-hrs{grid-column:2;white-space:nowrap;font-size:12px;font-weight:600}
+    .group-item-row .gi-hint{color:#71717a;font-weight:400}
+    .group-item-row .gi-ok{color:#15803d}
+    .group-item-row .gi-bad{color:#dc2626}
+    .group-item-row .gi-del{grid-column:3;width:32px;height:32px;padding:0;font-size:16px;line-height:1}
+    /* Header: total hours and the ⋮ menu only, on the right. */
+    .schedule-card-head{display:flex!important;justify-content:space-between!important;align-items:center!important;flex-wrap:wrap!important;gap:10px!important}
+    .schedule-card-head #tableBadge{order:-1;position:static!important;width:auto!important;height:auto!important;margin:0!important;clip:auto!important;overflow:visible!important;white-space:nowrap!important}
+    /* Schedule actions stay with the schedule, not in the sidebar. */
+    .schedule-card-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px}
+    .schedule-card-head #tableBadge{grid-column:1}
+    .schedule-card-copy{min-width:0}
+    .schedule-card-actions{display:flex;align-items:center;gap:8px}
+    .schedule-action{flex:0 0 auto;white-space:nowrap;border:1px solid #d0d7de;border-radius:2px;background:#fff;padding:6px 10px;color:#343a40;font-size:12px;font-weight:700}
+    .schedule-action:hover{background:#f8f9fa}
+    .schedule-action:focus-visible{outline:2px solid #343a40;outline-offset:2px}
+    @media(max-width:700px){
+      .schedule-card-head{grid-template-columns:minmax(0,1fr) auto;gap:8px 10px}
+      .schedule-card-copy p{display:none}
+      .schedule-card-actions{grid-column:1/-1;grid-row:2}
+      .schedule-card-head #tableBadge{grid-column:2;grid-row:1}
+    }
+    @media(max-width:340px){
+      .schedule-card-head{grid-template-columns:minmax(0,1fr)}
+      .schedule-card-head #tableBadge{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    }
+    @media(max-width:300px){.schedule-action{padding:5px 7px;font-size:11px}.schedule-card-actions{gap:6px}}
+    @media(max-height:360px){.schedule-card-head{padding-top:8px;padding-bottom:8px}.schedule-card-copy p{display:none}}
+
+    /* Put delete controls at the left without changing the fixed columns. */
+    .schedule-table .crew-name,.schedule-table .section-start{position:relative}
+    .schedule-table .btn-row-del{left:3px;right:auto;z-index:1;opacity:1;color:#98a2ad}
+    .schedule-table .btn-row-del:hover,.schedule-table .btn-row-del:focus-visible{color:#e03131}
+    .schedule-table .btn-row-del:focus-visible{outline:2px solid #343a40;outline-offset:0}
+    .schedule-table .drag-handle{position:absolute;left:3px;top:50%;transform:translateY(-50%);z-index:1;width:16px;height:20px;display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;color:#667085;cursor:grab;touch-action:none;border-radius:2px}
+    .schedule-table .drag-handle:hover,.schedule-table .drag-handle:focus-visible{color:#343a40;background:#eef1f4;outline:2px solid #343a40;outline-offset:0}
+    .schedule-table .drag-handle.dragging{cursor:grabbing;background:#dfe5ec}
+    .schedule-table tr.drop-before > td{box-shadow:inset 0 2px 0 #343a40}
+    .schedule-table tr.drop-after > td{box-shadow:inset 0 -2px 0 #343a40}
+    .schedule-table .btn-move-done{background:#343a40;color:#fff;border-color:#343a40}
+    .sec-menu{position:fixed;z-index:80;min-width:200px;max-width:280px;max-height:60vh;overflow:auto;background:#fff;border:1px solid #d0d7de;border-radius:2px;box-shadow:0 8px 24px rgba(16,24,40,.16);padding:6px}
+    .sec-menu button{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:2px;padding:8px 10px;font-size:13px;color:#212529;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sec-menu button:hover,.sec-menu button:focus-visible{background:#f1f3f5;outline:none}
+    .sec-menu button[data-m="delheader"]{color:#c92a2a}
+    .sec-menu .sec-menu-back{color:#495057;font-weight:600;border-bottom:1px solid #eef1f4;border-radius:0;margin-bottom:4px}
+    .sec-menu .sec-menu-empty{padding:8px 10px;font-size:12px;color:#868e96}
+    .schedule-table .crew-name .ce{width:100%}
+    .schedule-table .crew-input{text-align:center;display:block;width:100%;max-width:100%;border:0;background:transparent;font:inherit;font-size:inherit;color:inherit;padding:0;text-overflow:ellipsis;border-radius:2px}
+    .schedule-table .crew-input:focus{outline:2px solid #343a40;outline-offset:1px;background:#fff}
+    .schedule-table .crew-input::placeholder{color:#adb5bd}
+    .schedule-table tr.move-item .crew-name .ce{width:calc(100% - 24px);margin-left:20px}
+    .schedule-table tr.move-item .crew-name .crew-input{width:calc(100% - 24px);margin-left:20px}
+    .schedule-table .section-head{padding-left:26px}
+    .schedule-table .crew-meal{padding-right:4px}
+    .schedule-table .meal-value{width:100%}
+    .schedule-export .section-head{padding-left:0}
+
+    /* Keep modal controls in view; only the form body scrolls when space is tight. */
+    .add-row-modal{display:flex;flex-direction:column;min-height:0;max-height:100%}
+    .add-row-modal-head,.add-row-modal-foot{flex-shrink:0}
+    .add-row-modal-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+    .add-row-modal-body::-webkit-scrollbar{width:8px}
+    .add-row-modal-body::-webkit-scrollbar-thumb{border:2px solid #fff;border-radius:3px;background:#d0d7de}
+    #deleteMessage{overflow-wrap:anywhere}
+    .delete-note{margin-top:6px;color:#68747f;font-size:12px}
+    .delete-confirm-button{background:#b42318;color:#fff}
+    .delete-confirm-button:hover{background:#912018}
+    .preview-modal{max-height:100%}
+    @media(max-height:360px){#modalOverlay,#deleteOverlay{padding:8px}.add-row-modal-head,.add-row-modal-foot{padding-top:8px;padding-bottom:8px}}
+
+    /* The directory is separate from the editable schedule and its image export. */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+    /* Keep the top edge opaque at fractional browser zoom levels. */
+    .directory-head{position:relative;z-index:3;box-shadow:0 2px 0 #f8f9fa;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;padding:16px 18px;border-bottom:1px solid #e9ecef;background:#fff}
+    .directory-title{font-size:14px;font-weight:700;color:#212529;white-space:nowrap}
+    .directory-head > div:first-child{flex:1 1 220px;min-width:0}
+    .directory-subtitle{margin-top:3px;font-size:11px;color:#868e96}
+    .directory-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;min-width:0;margin-left:auto}
+    .directory-count{flex-shrink:0;border-radius:2px;background:#f1f3f5;padding:5px 10px;font-size:11px;font-weight:700;color:#495057;white-space:nowrap}
+    .directory-status{font-size:12px;color:#495057;max-width:280px}
+    .directory-search{display:flex;align-items:center;gap:8px;flex:0 1 260px;width:260px;max-width:100%;min-width:200px;border:1px solid #e3e7eb;border-radius:2px;background:#f8f9fa;padding:8px 10px;color:#868e96}
+    .directory-search:focus-within{border-color:#adb5bd;background:#fff;box-shadow:0 0 0 2px #edf0f2}
+    .dir-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+    .directory-name-cell{position:relative}
+    .btn-person-del{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-radius:2px;background:transparent;color:#98a2ad}
+    .btn-person-del:hover,.btn-person-del:focus-visible{color:#e03131;background:#fff5f5}
+    .btn-person-del:focus-visible{outline:2px solid #343a40;outline-offset:0}
+    .dir-menu{position:relative;flex:0 0 auto}
+    .add-person-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(16,24,40,.35)}
+    .add-person-overlay[hidden]{display:none}
+    .add-person-dialog{width:min(420px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:2px;box-shadow:0 12px 32px rgba(16,24,40,.2);padding:20px}
+    .add-person-title{font-size:15px;font-weight:700;color:#212529}
+    .add-person-field{display:flex;flex-direction:column;gap:5px;margin-top:12px;font-size:12px;font-weight:600;color:#495057}
+    .add-person-field em{font-style:normal;font-weight:400;color:#868e96}
+    .add-person-field input,.add-person-field select{width:100%;border:1px solid #d0d7de;border-radius:2px;background:#fff;padding:8px 10px;font:inherit;font-size:13px;font-weight:400;color:#212529}
+    .add-person-field input:focus,.add-person-field select:focus{outline:2px solid #343a40;outline-offset:0}
+    .add-person-field input[aria-invalid="true"]{border-color:#c92a2a}
+    .add-person-error{margin-top:12px;font-size:12px;color:#c92a2a}
+    .add-person-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+    .add-person-save{background:#343a40;color:#fff;border-color:#343a40}
+    .add-person-save:hover{background:#212529}
+    .dir-menu-btn{width:36px;height:36px;border:1px solid #d0d7de;border-radius:2px;background:#fff;color:#343a40;font-size:18px;line-height:1;font-weight:700}
+    .dir-menu-btn:hover{background:#f8f9fa}
+    .dir-menu-btn:focus-visible{outline:2px solid #343a40;outline-offset:2px}
+    .dir-menu-panel{position:absolute;right:0;top:calc(100% + 6px);z-index:20;display:flex;flex-direction:column;min-width:180px;background:#fff;border:1px solid #d0d7de;border-radius:2px;box-shadow:0 8px 24px rgba(16,24,40,.16);padding:6px}
+    .dir-menu-panel[hidden]{display:none}
+    .dir-menu-panel button{border:0;background:transparent;border-radius:2px;padding:8px 10px;text-align:left;font-size:13px;color:#212529;white-space:nowrap}
+    .dir-menu-panel button:hover,.dir-menu-panel button:focus-visible{background:#f1f3f5;outline:none}
+    .directory-search input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#212529;font:inherit;font-size:13px}
+    .directory-search input::placeholder{color:#868e96}
+    .directory-scroll{min-height:0;flex:1;overflow:auto;background:#fff}
+    .directory-scroll::-webkit-scrollbar{width:10px;height:10px}
+    .directory-scroll::-webkit-scrollbar-thumb{border:2px solid #fff;border-radius:3px;background:#d0d7de}
+    .directory-table{width:100%;table-layout:fixed;border-collapse:collapse}
+    .directory-table th,.directory-person td{white-space:nowrap;overflow-wrap:normal}
+    .directory-table thead tr{background:#f8f9fa}
+    .directory-table thead th{position:sticky;top:0;z-index:2;padding:2px 4px;border-bottom:0;box-shadow:inset 0 -1px 0 #d0d7de;background:#f8f9fa;text-align:left;color:#868e96;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+        /* Keep role headers snug under the column headings, even when headings wrap. */
+    .directory-group th{--directory-group-border:#8a949e;position:sticky;top:calc(var(--directory-heading-height,30px) - 1px);z-index:1;padding:2px 4px;border:0;box-shadow:none;text-align:left;font-size:12px;font-weight:800;letter-spacing:.04em}
+    .directory-group-line{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .directory-group-count{font-size:11px;font-weight:600;letter-spacing:0;opacity:.84}
+    .directory-cc .directory-group th{--directory-group-border:#922020;background:#c92a2a;color:#fff}
+    .directory-crew .directory-group th{--directory-group-border:#1864ab;background:#1c7ed6;color:#fff}
+    .directory-gel .directory-group th{--directory-group-border:#145028;background:#23763a;color:#fff}
+    .directory-person td{padding:2px 4px;border-right:1px solid #e9ecef;border-bottom:1px solid #e9ecef;vertical-align:middle;color:#343a40;font-size:13px}
+    .directory-person td:last-child{border-right:0}.directory-person td:first-child{font-weight:700;color:#212529}
+    .directory-cc .directory-person td{background:#fff7f7}.directory-crew .directory-person td{background:#fff}.directory-gel .directory-person td{background:#f3fbf5}
+    .directory-empty{padding:2px 4px;text-align:center;color:#868e96}
+    .directory-muted{color:#adb5bd}
+    .directory-person.is-clickable{cursor:pointer}
+    .directory-person.is-clickable:hover td{background:#f1f3f5}
+    .directory-person.is-clickable:focus-visible{outline:2px solid #343a40;outline-offset:-2px}
+    .av-body{max-height:62vh;overflow:auto}
+    /* TA time picker */
+    .ta-pick{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;text-decoration-color:#adb5bd}
+    .ta-pick:hover{background:#fff9db}
+    .ta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .ta-grid [role="listbox"]{max-height:130px!important}
+    .ta-list{display:block;width:100%;border:1px solid #d0d7de;border-radius:2px;padding:4px;font:inherit;font-size:13px;color:#212529;background:#fff;outline:0}
+    .ta-list:focus-visible{outline:2px solid #343a40;outline-offset:2px}
+    .ta-list option{padding:3px 6px}
+    .ta-label{width:100%;padding:6px 8px;margin-top:4px}
+    .ta-preview{font-size:14px;font-weight:700;color:#212529;margin-top:12px}
+    .ta-error{font-size:12px;color:#e03131;margin-top:4px;min-height:16px}
+    .ta-foot{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid #e9ecef;padding:12px 16px}
+    .ta-save{border:1px solid #343a40;border-radius:2px;background:#343a40;color:#fff;padding:7px 14px;font-size:13px;font-weight:700}
+    .ta-save:disabled{opacity:.4;cursor:default}
+    .ta-save:focus-visible,.ta-cancel:focus-visible{outline:2px solid #343a40;outline-offset:2px}
+    .ta-cancel{border:1px solid #d0d7de;border-radius:2px;background:#fff;color:#343a40;padding:7px 14px;font-size:13px;font-weight:700}
+    .preview-overlay{display:none}
+    .preview-overlay.open{display:flex}
+    .spinner{width:28px;height:28px;border:3px solid #dee2e6;border-top-color:#212529;border-radius:50%;animation:preview-spin .8s linear infinite}
+    @keyframes preview-spin{to{transform:rotate(360deg)}}
+    .sk-bar{display:block;height:12px;border-radius:4px;background:linear-gradient(90deg,#e9ecef 25%,#f8f9fa 37%,#e9ecef 63%);background-size:400% 100%;animation:sk-shine 1.4s ease infinite}
+    .directory-skeleton td{pointer-events:none}
+    .directory-skeleton .sk-bar{margin:0}
+    @keyframes sk-shine{0%{background-position:100% 50%}100%{background-position:0 50%}}
+    @media (prefers-reduced-motion:reduce){.sk-bar{animation:none}}
+    .ta-dot{display:inline-block;width:9px;height:9px;margin-right:7px;border-radius:50%;vertical-align:middle;box-sizing:border-box;border:1.5px solid #adb5bd;background:transparent}
+    .ta-dot.has{background:#2f9e44;border-color:#2f9e44}
+    .av-input:disabled+.av-opt{opacity:.4;cursor:not-allowed}
+    .av-day{position:relative;border:1px solid #e9ecef;border-radius:2px;padding:6px 8px 8px;margin:0 0 6px}
+    .av-day legend{font-size:12px;font-weight:700;padding:0 4px;color:#343a40}
+    .av-opts{display:flex;flex-wrap:wrap;gap:4px}
+    /* day options: Open | Mid | Close on one row (equal width); Specific time and Rest each take a full row */
+    .av-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+    .av-grid .av-opt{display:block;text-align:center}
+    .av-grid .av-wide{grid-column:1 / -1}
+    /* Sidebar width scales with the window: 293px on wide screens, down to 257px on narrow ones. */
+    :root{--sidebar-w:clamp(257px,20vw,293px)}
+    /* Keep at least 64px of the page visible beside the drawer so it can still be tapped to close. */
+    .sidebar{width:min(var(--sidebar-w),calc(100vw - 64px))}
+    @media (min-width:900px){.main{margin-left:var(--sidebar-w)}}
+    /* Long sidebar text ends in "..." on one line instead of wrapping. */
+    .sidebar .nav-btn{min-width:0}
+    .sidebar .nav-btn > span:last-child{min-width:0;flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .sidebar .nav-title,.sidebar h1,.sidebar p,.sidebar .stat-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .sidebar > div > div:not(.nav-title){min-width:0}
+    /* Lucide icons (replace the emoji and symbols). */
+    svg.lucide{width:1em;height:1em;vertical-align:-.125em;stroke-width:2;flex-shrink:0}
+    .btn-close svg.lucide{width:14px;height:14px}
+    .dir-menu-btn svg.lucide,.btn-section-menu svg.lucide{width:16px;height:16px}
+    #hamburger svg.lucide{width:18px;height:18px}
+    .sec-menu-back svg.lucide{width:13px;height:13px}
+    /* Icon-only buttons: centre the icon inside the button. */
+    .btn-row-del,.btn-section-menu,.dir-menu-btn,.btn-close{display:inline-flex;align-items:center;justify-content:center}
+    .nav-icon svg{width:16px;height:16px;stroke-width:2}
+    .inline-icon{display:inline-block;width:15px;height:15px;vertical-align:-2px;margin-right:4px}
+    .inline-icon svg,[data-lucide].inline-icon svg{width:15px;height:15px}
+    .search svg{width:14px;height:14px}
+    /* Off-canvas drawer: when closed, its links are hidden from keyboard focus too (KEY-09). */
+    @media (max-width:900px){.sidebar{visibility:hidden;transition:transform .2s,visibility .2s}.sidebar.open{visibility:visible}}
+    /* Can duty in: 2 x 2 equal-width grid */
+    .av-grid.av-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .av-input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+    .av-opt{display:inline-block;padding:4px 10px;border:1px solid #d0d7de;border-radius:2px;font-size:12px;cursor:pointer;background:#fff;color:#495057;user-select:none}
+    .av-input:checked+.av-opt{background:#343a40;color:#fff;border-color:#343a40}
+    .av-input:focus-visible+.av-opt{outline:2px solid #fab005;outline-offset:2px}
+    .av-times{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+    .av-times:empty{display:none}
+    .av-time-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;color:#343a40}
+    .av-time-name{font-weight:800;letter-spacing:.04em;min-width:52px}
+    .av-time-lbl{display:flex;align-items:center;gap:6px;color:#495057}
+    .av-time-sel{border:1px solid #d0d7de;border-radius:2px;padding:3px 6px;font:inherit;font-size:12px;background:#fff;color:#212529}
+    .av-time-err{color:#e03131;font-size:11px;width:100%}
+    .av-output{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;line-height:1.6;background:#f8f9fa;border:1px solid #e9ecef;border-radius:2px;padding:8px 10px;white-space:pre-line;color:#343a40}
+    @media(max-width:650px){.directory-head{align-items:stretch;flex-direction:column;flex-wrap:nowrap;gap:12px}.directory-head > div:first-child{flex:none}.directory-tools{width:100%}.directory-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}
+    .directory-count{grid-column:1 / -1;justify-self:start}
+    .directory-search{grid-column:1;grid-row:2;width:auto;min-width:0;flex:none}
+    .dir-actions{grid-column:2;grid-row:2;display:flex;align-items:center;gap:8px}.directory-person td{font-size:12px}}
+  </style>
+  <style id="ui-theme">
+    /* ============================================================
+       Design system (shadcn "neutral" look). Loaded last so it
+       overrides the component classes above. Tokens:
+       background #fff, page #fafafa, border #e4e4e7, ink #18181b,
+       muted #71717a, destructive #dc2626, radius 6px (controls),
+       8px (cards), shadow-xs / shadow-sm / shadow-lg as shadcn.
+       ============================================================ */
+    :root{
+      --ui-bg:#ffffff; --ui-page:#fafafa; --ui-fg:#09090b; --ui-ink:#18181b; --ui-ink-2:#3f3f46;
+      --ui-muted:#71717a; --ui-border:#e4e4e7; --ui-input:#e4e4e7; --ui-soft:#f4f4f5;
+      --ui-ring:rgba(24,24,27,.5); --ui-danger:#dc2626; --ui-danger-soft:#fef2f2;
+      --ui-shadow-xs:0 1px 2px 0 rgb(0 0 0 / .05);
+      --ui-shadow-sm:0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+      --ui-shadow-md:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
+      --ui-shadow-lg:0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);
+      --ui-focus:0 0 0 3px rgb(24 24 27 / .15);
+    }
+    html,body{background:var(--ui-page);color:var(--ui-fg);font-feature-settings:normal;-webkit-font-smoothing:antialiased}
+    .app-toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,12px);max-width:calc(100vw - 32px);padding:10px 14px;border-radius:4px;background:#212529;color:#fff;font-size:13px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:600}
+    .app-toast.show{opacity:1;transform:translate(-50%,0)}
+    /* Fit the app to the visible screen; dvh follows the mobile browser toolbar. The table and lists scroll inside the page. */
+    html{height:100%}
+    body{height:100vh;height:100dvh;overflow:hidden}
+    .sidebar{height:100vh;height:100dvh}
+    .main{height:100vh;height:100dvh;overflow:hidden}
+    :focus-visible{outline:2px solid var(--ui-ink);outline-offset:2px}
+
+    /* Phone width: tighter card header; the Reset action sits right-aligned under the title. */
+    @media(max-width:700px){
+      .schedule-card-head{padding:12px 14px!important;gap:10px 10px!important}
+      .schedule-card-actions{justify-content:flex-end!important;gap:8px!important}
+      .schedule-card-actions .schedule-action,.schedule-card-actions .btn{height:32px!important;padding:0 12px!important}
+      .card-head .schedule-card-copy h2{font-size:15px!important}
+    }
+    /* Section header menu (⋮): centre it in the section row so it is not clipped at the bottom. */
+    .schedule-table .section-start .btn-section-menu,.btn-section-menu{top:50%!important;bottom:auto!important;transform:translateY(-50%)!important}
+    /* Sidebar and top bar */
+    .sidebar{background:var(--ui-bg)!important;border-right:1px solid var(--ui-border)!important;box-shadow:none!important}
+    .sidebar h1{font-size:14px!important;font-weight:600!important;letter-spacing:-.01em!important;color:var(--ui-fg)}
+    .sidebar .nav-title{font-size:12px!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;color:var(--ui-muted)!important;margin:12px 0 6px!important}
+    .nav-btn{height:36px;border-radius:6px!important;padding:0 10px!important;font-size:14px!important;font-weight:500!important;color:var(--ui-ink-2)!important;transition:background-color .15s,color .15s}
+    .nav-btn:hover{background:var(--ui-soft)!important;color:var(--ui-fg)!important}
+    .nav-btn.active{background:var(--ui-soft)!important;color:var(--ui-fg)!important;font-weight:600!important}
+    .nav-icon{color:var(--ui-muted)}
+    .nav-btn.active .nav-icon{color:var(--ui-fg)}
+    .topbar{background:var(--ui-bg)!important;border-bottom:1px solid var(--ui-border)!important;height:56px!important;padding-left:20px!important;padding-right:20px!important}
+    #pageTitle{font-size:15px!important;font-weight:600!important;color:var(--ui-fg)}
+    #hamburger{border-radius:6px!important;border-color:var(--ui-border)!important;background:var(--ui-bg)!important;color:var(--ui-ink-2)!important;box-shadow:var(--ui-shadow-xs)}
+    #hamburger:hover{background:var(--ui-soft)!important}
+    /* Menu button: only on narrow screens, where the sidebar is a drawer. Wide screens keep the sidebar open. */
+    #hamburger{display:none!important}
+    @media (max-width:899.98px){#hamburger{display:inline-flex!important}}
+    .topbar .search{height:36px;border-radius:6px!important;border:1px solid var(--ui-input)!important;box-shadow:var(--ui-shadow-xs);background:var(--ui-bg)!important;padding:0 10px!important}
+    .topbar .search:focus-within{border-color:var(--ui-ink)!important;box-shadow:none!important}
+    .topbar input{border:0!important;box-shadow:none!important;background:transparent!important;height:100%;outline:none!important;padding:0!important;min-width:0;width:100%}
+    .topbar .live-dot{background:#16a34a}
+
+    /* Cards */
+    .card{background:var(--ui-bg)!important;border:1px solid var(--ui-border)!important;border-radius:8px!important;box-shadow:var(--ui-shadow-sm)!important}
+    .card-head{background:var(--ui-bg)!important;border-bottom:1px solid var(--ui-border)!important}
+    .card-head h2,.card-head .card-title{font-size:15px!important;font-weight:600!important;color:var(--ui-fg)}
+    .card-head p{font-size:13px!important;color:var(--ui-muted)!important}
+    .schedule-card-head{padding:16px 20px!important;border-bottom:0!important}
+    .directory-head{padding:16px 20px!important;background:var(--ui-bg)!important;border-bottom:1px solid var(--ui-border)!important;box-shadow:none!important}
+    .directory-title{font-size:15px!important;font-weight:600!important;color:var(--ui-fg)!important}
+    .directory-subtitle{font-size:13px!important;color:var(--ui-muted)!important;margin-top:2px!important}
+
+    /* Badges */
+    #tableBadge,.directory-count{display:inline-flex;align-items:center;border:1px solid var(--ui-border)!important;border-radius:6px!important;background:var(--ui-soft)!important;color:var(--ui-ink-2)!important;padding:2px 8px!important;font-size:12px!important;font-weight:500!important;line-height:20px}
+    .live-dot{height:6px!important;width:6px!important}
+
+    /* Buttons */
+    .btn{height:36px;padding:0 16px!important;border-radius:6px!important;border:1px solid transparent;font-size:14px!important;font-weight:500!important;line-height:1;box-shadow:none;transition:background-color .15s,border-color .15s,color .15s}
+    .btn:focus-visible{outline:none!important;box-shadow:none!important}
+    .btn-primary{background:var(--ui-ink)!important;color:#fafafa!important;border-color:var(--ui-ink)!important;box-shadow:var(--ui-shadow-xs)}
+    .btn-primary:hover{background:rgb(24 24 27 / .9)!important}
+    .btn-secondary{background:var(--ui-bg)!important;color:var(--ui-fg)!important;border:1px solid var(--ui-input)!important;box-shadow:var(--ui-shadow-xs)}
+    .btn-secondary:hover{background:var(--ui-soft)!important}
+    .btn-close,.btn-row-del,.btn-section-menu,.dir-menu-btn{border-radius:6px!important;box-shadow:none!important}
+    .btn-close:hover,.dir-menu-btn:hover,.btn-section-menu:hover{background:var(--ui-soft)!important}
+    .dir-menu-btn{width:36px;height:36px;border:1px solid var(--ui-input)!important;background:var(--ui-bg)!important;color:var(--ui-ink-2)!important;box-shadow:var(--ui-shadow-xs)}
+    .btn-section-add{height:28px;padding:0 10px!important;border-radius:6px!important;border:1px solid var(--ui-input)!important;background:var(--ui-bg)!important;color:var(--ui-fg)!important;font-size:12px!important;font-weight:500!important;box-shadow:var(--ui-shadow-xs)}
+    .btn-section-add:hover{background:var(--ui-soft)!important}
+    .schedule-action,.ta-cancel{height:32px;border-radius:6px!important;border:1px solid var(--ui-input)!important;background:var(--ui-bg)!important;color:var(--ui-fg)!important;padding:0 12px!important;font-size:13px!important;font-weight:500!important;box-shadow:var(--ui-shadow-xs)}
+    .schedule-action:hover,.ta-cancel:hover{background:var(--ui-soft)!important}
+    .ta-save,.add-person-save{height:32px;border-radius:6px!important;border:1px solid var(--ui-ink)!important;background:var(--ui-ink)!important;color:#fafafa!important;padding:0 12px!important;font-size:13px!important;font-weight:500!important;box-shadow:var(--ui-shadow-xs)}
+    .ta-save:hover,.add-person-save:hover{background:rgb(24 24 27 / .9)!important}
+    .delete-confirm-button{background:var(--ui-danger)!important;border-color:var(--ui-danger)!important;color:#fff!important}
+    .delete-confirm-button:hover{background:#b91c1c!important}
+    .schedule-table .btn-move-done{background:var(--ui-ink)!important;color:#fafafa!important;border-color:var(--ui-ink)!important}
+
+    /* Inputs, selects and search */
+    .field-input,.add-person-field input,.add-person-field select,.ta-list,.av-time-sel,.directory-search{background:var(--ui-bg);border:1px solid var(--ui-input);border-radius:6px;box-shadow:var(--ui-shadow-xs);color:var(--ui-fg)}
+    .field-input{height:36px;padding:0 12px;font-size:14px}
+    .field-input:focus,.add-person-field input:focus,.add-person-field select:focus,.av-time-sel:focus,.ta-list:focus{border-color:var(--ui-ink);box-shadow:none;outline:none}
+    .field-input::placeholder,.crew-input::placeholder,.directory-search input::placeholder{color:var(--ui-muted)!important}
+    .directory-search{height:36px;padding:0 10px;gap:8px}
+    .directory-search:focus-within{border-color:var(--ui-ink)!important;box-shadow:none!important;background:var(--ui-bg)!important}
+    .directory-search input{font-size:14px!important}
+    .add-person-field input,.add-person-field select{height:36px;padding:0 12px;font-size:14px}
+    .add-person-field{font-size:13px!important;font-weight:500!important;color:var(--ui-fg)!important;gap:6px}
+    .add-person-field em{color:var(--ui-muted)}
+    .add-person-field input[aria-invalid="true"]{border-color:var(--ui-danger)!important;box-shadow:0 0 0 3px rgb(220 38 38 / .15)}
+    .add-person-error{color:var(--ui-danger)!important}
+    .field-label{font-size:12px!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;color:var(--ui-fg)!important;margin-bottom:6px!important}
+    .meta-label{font-size:11px!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;color:var(--ui-muted)!important}
+    .ce:focus,.meta-input:focus{background:var(--ui-bg)!important;box-shadow:inset 0 0 0 2px var(--ui-ink)!important;border-radius:4px}
+    .schedule-table .crew-input:focus{outline:none;background:var(--ui-bg);box-shadow:inset 0 0 0 2px var(--ui-ink)}
+    .crew-input,.meta-input{font-family:inherit}
+    .crew-input{caret-color:transparent;cursor:pointer}
+
+    /* Tables */
+    .cell{border-color:var(--ui-border)!important;background:var(--ui-bg)!important}
+    .row-colheader > td,.directory-table thead th{background:var(--ui-page)!important;color:var(--ui-muted)!important;font-size:12px!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;border-color:var(--ui-border)!important}
+    .directory-table thead th{padding:6px 10px!important}
+    /* Schedule column header: light yellow band with bold uppercase labels, as before the restyle. */
+    .schedule-table tr.row-colheader > td{background:#fff9db!important;color:#343a40!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.04em!important}
+    .section-head{font-weight:600}
+    /* Section headers (PRODUCTION, SERVICE, ...): light blue band so they stand out. */
+    .schedule-table tr.section-row > td,.schedule-table tr.row-section > td{background:#dbeafe!important;color:#1e3a8a}
+    .schedule-table tr:hover > td{background-color:transparent}
+    .directory-person td{border-color:var(--ui-border)!important;color:var(--ui-ink-2)!important;font-size:14px!important;padding:6px 10px!important;background:var(--ui-bg)!important}
+    .directory-person td:first-child{color:var(--ui-fg)!important;font-weight:500!important}
+    @media(max-width:650px){.directory-person td{font-size:12px!important;padding:4px 6px!important}}
+    .directory-person.is-clickable:hover td{background:var(--ui-page)!important}
+    .directory-person.is-clickable:focus-visible{outline:2px solid var(--ui-ink);outline-offset:-2px}
+    .directory-scroll{background:var(--ui-bg)}
+    .directory-group th{padding:6px 10px!important;font-size:12px!important;font-weight:600!important;letter-spacing:0!important;border-top:1px solid var(--ui-border)!important;border-bottom:1px solid var(--ui-border)!important;--directory-group-border:var(--ui-border)}
+    .directory-group-count{font-weight:500!important;color:var(--ui-muted)!important;opacity:1!important}
+    .directory-cc .directory-group th{background:#fef2f2!important;color:#b91c1c!important;box-shadow:inset 3px 0 0 #dc2626!important;--directory-group-border:#fecaca}
+    .directory-crew .directory-group th{background:#eff6ff!important;color:#1d4ed8!important;box-shadow:inset 3px 0 0 #2563eb!important;--directory-group-border:#bfdbfe}
+    .directory-gel .directory-group th{background:#f0fdf4!important;color:#15803d!important;box-shadow:inset 3px 0 0 #16a34a!important;--directory-group-border:#bbf7d0}
+    .directory-cc .directory-group-count,.directory-crew .directory-group-count,.directory-gel .directory-group-count{color:inherit!important}
+    .directory-cc .directory-person td,.directory-crew .directory-person td,.directory-gel .directory-person td{background:var(--ui-bg)!important}
+
+    /* Export image: group counts stay white on the solid group bars */
+    .directory-export .directory-group-count{color:#fff!important;opacity:1!important}
+    /* Dropdown and popover menus */
+    .sec-menu,.dir-menu-panel{background:var(--ui-bg)!important;border:1px solid var(--ui-border)!important;border-radius:8px!important;box-shadow:var(--ui-shadow-md)!important;padding:4px!important}
+    .sec-menu button,.dir-menu-panel button{border-radius:4px!important;padding:6px 8px!important;font-size:14px!important;color:var(--ui-fg)!important}
+    .sec-menu button:hover,.sec-menu button:focus-visible,.dir-menu-panel button:hover,.dir-menu-panel button:focus-visible{background:var(--ui-soft)!important}
+    .sec-menu button[data-m="delheader"],.dir-menu-panel button[data-m="delete"]{color:var(--ui-danger)!important}
+    .sec-menu .sec-menu-back{border-bottom:1px solid var(--ui-border)!important;color:var(--ui-muted)!important;font-weight:500!important}
+    .sec-menu .sec-menu-empty{color:var(--ui-muted)!important;font-size:13px!important}
+
+    /* Dialogs */
+    .overlay,.preview-overlay,.add-person-overlay,#modalOverlay,#deleteOverlay{background:rgb(0 0 0 / .5)!important;backdrop-filter:none!important}
+    .sidebar-overlay{background:rgb(0 0 0 / .5)!important}
+    .add-row-modal,.preview-modal,.add-person-dialog{background:var(--ui-bg)!important;border:1px solid var(--ui-border)!important;border-radius:8px!important;box-shadow:var(--ui-shadow-lg)!important}
+    .add-row-modal-head,.add-row-modal-foot,.ta-foot{border-color:var(--ui-border)!important}
+    .add-person-title{font-size:16px!important;font-weight:600!important;color:var(--ui-fg)!important}
+    .add-person-dialog{padding:24px!important}
+    .add-person-actions{margin-top:20px!important;gap:8px!important}
+    .delete-note,.directory-status{color:var(--ui-muted)!important}
+    .av-opt{border-radius:6px!important;border:1px solid var(--ui-input)!important;background:var(--ui-bg)!important;color:var(--ui-ink-2)!important;font-size:13px!important;font-weight:500!important;padding:6px 10px!important;box-shadow:var(--ui-shadow-xs)}
+    .av-input:checked+.av-opt{background:var(--ui-ink)!important;color:#fafafa!important;border-color:var(--ui-ink)!important}
+    .av-day{border:1px solid var(--ui-border)!important;border-radius:8px!important}
+    .av-day legend{color:var(--ui-fg)!important;font-weight:600!important}
+    .av-output{background:var(--ui-page)!important;border:1px solid var(--ui-border)!important;border-radius:6px!important}
+    .ta-error,.av-time-err{color:var(--ui-danger)!important}
+
+    /* Scrollbars */
+    .directory-scroll::-webkit-scrollbar-thumb,.table-wrap::-webkit-scrollbar-thumb,.sidebar-scroll::-webkit-scrollbar-thumb,.add-row-modal-body::-webkit-scrollbar-thumb{background:#d4d4d8!important;border-color:var(--ui-bg)!important;border-radius:999px!important}
+
+    /* Keep sidebar nav and icons in the same muted tone */
+    svg.lucide{stroke-width:2}
+
+    /* shadcn default radii: 6px controls, 8px cards and dialogs, 4px small chips and cells. Round dots stay round. */
+    button:not(.live-dot),input,select,textarea,.btn,.nav-btn,.field-input,.av-opt,.av-day,.av-output,.av-time-sel,.ta-list,.ta-label,
+    .sec-menu,.dir-menu-panel,.directory-search,.directory-count,.directory-count *,#tableBadge,.schedule-action,.dir-menu-btn,
+    .btn-section-add,.ta-save,.ta-cancel,.add-person-save,.delete-confirm-button,.search,.sidebar .nav-btn,#hamburger,.topbar .search{border-radius:6px!important}
+    .cell,.ce,.meta-input,.crew-input,.drag-handle,.btn-row-del,.btn-section-menu,.btn-close,.btn-person-del,.ta-pick,.ta-dot.has,.schedule-table .section-title-edit{border-radius:4px!important}
+    .card,.add-row-modal,.preview-modal,.add-person-dialog,.overlay > div,.preview-overlay > div,.sidebar-overlay{border-radius:8px!important}
+    .ta-dot,.live-dot{border-radius:9999px!important}
+
+    /* Buttons: one line, icon and label centred together. Labels never wrap onto a second line. */
+    button,.btn,[role="button"]{white-space:nowrap!important;word-break:keep-all}
+    button:has(> svg),.btn:has(> svg),.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+    button > svg.lucide,.btn > svg.lucide{flex-shrink:0}
+
+    /* Icon-only button: square, icon centred. */
+    .btn.btn-icon{width:36px;padding:0!important;gap:0}
+
+    /* Position names (crew role) in the schedule: slightly smaller so the full name fits its fixed column, e.g. DT PRESENTER/BEVCELL. */
+    .schedule-table .crew-role .ce{font-size:11px!important;letter-spacing:-.01em!important}
+    /* Loading skeleton: same radii as the rest of the UI. */
+    #boot-skeleton .sk,#boot-skeleton .sk-row{border-radius:6px!important}
+    #boot-skeleton .sk-card{border-radius:8px!important}
+
+    /* Keyboard hints: arrow icons sit inline with their text. */
+    p svg.lucide{display:inline-block;vertical-align:-2px;width:12px;height:12px}
+
+    /* Loading skeleton: same neutral palette, borders, shadows and top bar height as the app. */
+    #boot-skeleton{background:#fafafa!important}
+    #boot-skeleton .sk{background:linear-gradient(90deg,#f4f4f5 25%,#fafafa 37%,#f4f4f5 63%)!important;background-size:400% 100%!important}
+    #boot-skeleton .sk-side{background:#fff!important;border-right:1px solid #e4e4e7!important}
+    #boot-skeleton .sk-top{height:56px!important;background:#fff!important;border-bottom:1px solid #e4e4e7!important}
+    #boot-skeleton .sk-top{gap:12px}
+    #boot-skeleton .sk-top > .sk{width:auto!important;flex:0 1 200px;min-width:0}
+    #boot-skeleton .sk-card{background:#fff!important;border:1px solid #e4e4e7!important;box-shadow:0 1px 3px 0 rgb(0 0 0 / .1),0 1px 2px -1px rgb(0 0 0 / .1)!important}
+    #boot-skeleton .sk-card > div:first-child{border-bottom:1px solid #e4e4e7}
+
+    /* No focus outlines or focus rings anywhere (buttons, inputs, editable cells, menus). */
+    *,*::before,*::after,*:focus,*:focus-visible{outline:none!important;outline-offset:0!important}
+    *:focus,*:focus-visible{box-shadow:none!important}
+  </style>
+  <style id="group-dialog">
+    dialog.group-dialog{margin:auto;border:1px solid #e4e4e7;border-radius:8px;padding:0;width:min(450px,calc(100vw - 32px));max-height:88vh;color:#18181b;background:#fff;box-shadow:0 20px 40px rgb(0 0 0 / .18)}
+    dialog.group-dialog::backdrop{background:rgb(0 0 0 / .35)}
+    dialog.group-dialog form{display:flex;flex-direction:column;max-height:88vh}
+    .group-dialog-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #e4e4e7}
+    .group-dialog-head h3{font-size:15px;font-weight:600;margin:0}
+    .group-dialog-body{padding:16px 20px;overflow:auto}
+    .group-dialog-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid #e4e4e7;background:#fafafa}
+    .group-dialog-error{color:#dc2626;font-size:13px;margin:10px 0 0}
+  </style>
+  <style id="boot-skeleton-css">
+    #boot-skeleton{position:fixed;inset:0;z-index:9999;display:flex;background:#f5f6f8;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;transition:opacity .25s ease}
+    html.app-ready #boot-skeleton{opacity:0;pointer-events:none}
+    #boot-skeleton .sk{background:linear-gradient(90deg,#e9ecef 25%,#f5f6f8 37%,#e9ecef 63%);background-size:400% 100%;animation:sk-shimmer 1.4s ease infinite;border-radius:2px}
+    @keyframes sk-shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
+    #boot-skeleton .sk-side{width:293px;flex:none;background:#fff;border-right:1px solid #e9ecef;padding:14px 18px;display:flex;flex-direction:column;gap:12px}
+    #boot-skeleton .sk-main{flex:1;min-width:0;display:flex;flex-direction:column}
+    #boot-skeleton .sk-top{height:58px;background:#fff;border-bottom:1px solid #e9ecef;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+    #boot-skeleton .sk-card{margin:20px;background:#fff;border:1px solid #e9ecef;border-radius:2px;flex:1;display:flex;flex-direction:column;overflow:hidden}
+    #boot-skeleton .sk-row{height:26px;margin:6px 16px;border-radius:2px}
+    @media (max-width:900px){#boot-skeleton .sk-side{display:none}#boot-skeleton .sk-card{margin:16px}}
+    @media (prefers-reduced-motion:reduce){#boot-skeleton .sk{animation:none}}
+  </style>
+  <style id="src-sizes">
+    /* sizes matched to the src Crew Directory: headings 12px, names 14px, rows 34px; 650px and under: 12px, rows 27px */
+    .directory-table{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+    .directory-table thead th{font-size:12px;font-weight:500;line-height:18px;padding:6px 10px}
+    .directory-group th{font-size:12px;font-weight:600;line-height:18px;padding:6px 10px}
+    .directory-person td{font-size:14px;line-height:21px;padding:6px 10px;height:34px}
+    .directory-person td:first-child{font-weight:500}
+    @media (max-width:650px){.directory-person td{font-size:12px;line-height:18px;padding:4px 6px;height:27px}}
+  </style>
+</head>
+<body class="flex">
+<div class="content flex min-h-0 flex-1 flex-col p-5" style="width:100%;max-width:1100px;margin:0 auto;height:100vh;height:100dvh">
+      <div id="directoryCard" class="card flex min-h-0 flex-1 flex-col overflow-hidden rounded border border-line bg-white shadow-card">
+        <div class="directory-head">
+          <div>
+            <h3 class="directory-title">November Crew Directory</h3>
+            <p class="directory-subtitle">Names grouped by role from the November roster</p>
+          </div>
+          <div class="directory-tools">
+            <span id="directoryCount" class="directory-count" aria-live="polite">40 names</span>
+            <label class="directory-search">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+              <span class="sr-only">Search the crew directory</span>
+              <input id="directorySearch" type="search" placeholder="Search names or role..." autocomplete="off" spellcheck="false" />
+            </label>
+            <div class="dir-actions">
+            <div class="dir-menu">
+              <button id="btnDirectoryMenu" class="dir-menu-btn" type="button" aria-label="Directory backup options" aria-haspopup="menu" aria-expanded="false" aria-controls="directoryMenuPanel"><i data-lucide="ellipsis-vertical"></i></button>
+              <div id="directoryMenuPanel" class="dir-menu-panel" role="menu" aria-label="Directory backup" hidden>
+                <button id="btnDirectorySaveJson" type="button" role="menuitem" title="Download a JSON backup of the directory TA data">Export as JSON</button>
+                <button id="btnDirectoryImport" type="button" role="menuitem" title="Restore the directory TA data from a JSON backup">Import JSON</button>
+                <button id="btnDirectoryImage" type="button" role="menuitem" title="Save the full directory as an image (also used as the link preview cover)">Save as Image</button>
+              </div>
+            </div>
+            </div>
+            <input id="directoryImportFile" type="file" accept="application/json,.json" hidden />
+            <span id="directoryStatus" class="directory-status" role="status" hidden></span>
+          </div>
+        </div>
+        <div class="directory-scroll">
+          <table id="directoryTable" class="directory-table">
+            <caption class="sr-only">November roster: nickname, first name and last name by role</caption>
+            <thead><tr><th scope="col">Nickname</th><th scope="col">First Name</th><th scope="col">Last Name</th></tr></thead>
+            <tbody id="directoryCC" class="directory-cc"></tbody>
+            <tbody id="directoryGEL" class="directory-gel"></tbody>
+            <tbody id="directoryCrew" class="directory-crew"></tbody>
+            <tbody id="directoryEmpty" hidden><tr><td colspan="3" class="directory-empty">No names found. Try a different search.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+</div>
+
+
+  <!-- PERSON PREVIEW (one person's TA, day by day) -->
+  <div id="personPreviewOverlay" class="overlay fixed inset-0 z-[100] items-center justify-center bg-black/30 p-4 backdrop-blur-[3px]">
+    <div class="flex max-h-[88vh] w-full max-w-[460px] flex-col overflow-hidden rounded bg-white shadow-modal animate-modal-in" role="dialog" aria-modal="true" aria-labelledby="personPreviewTitle">
+      <div class="flex items-center justify-between gap-3 border-b border-line-soft px-4 py-4">
+        <div class="min-w-0">
+          <h3 id="personPreviewTitle" class="text-[15px] font-bold">TA</h3>
+          <p id="personPreviewSub" class="mt-0.5 text-[12px] text-ink-3"></p>
+        </div>
+        <button id="btnPersonPreviewClose" class="btn-close" type="button" aria-label="Close"><i data-lucide="x"></i></button>
+      </div>
+      <div id="personPreviewBody" class="min-h-0 flex-1 overflow-y-auto px-4 py-3"></div>
+      <div class="flex items-center justify-start gap-2 border-t border-line-soft bg-gray-50 px-4 py-3.5">
+        <button id="btnPersonPreviewEdit" class="btn btn-primary" type="button">Edit</button>
+      </div>
+    </div>
+  </div>
+
+<div id="previewOverlay" class="preview-overlay fixed inset-0 z-[200] items-center justify-center bg-black/55 p-5 backdrop-blur-[6px]">
+    <div class="preview-modal flex w-[820px] max-w-[92vw] animate-modal-in flex-col overflow-hidden rounded bg-white shadow-modal-xl max-nav:w-[98vw]">
+      <div class="flex shrink-0 items-center justify-between border-b border-line-soft px-5 py-4">
+        <h3 class="text-[15px] font-bold">Image Preview</h3>
+        <button id="btnPreviewClose" class="btn-close" type="button" aria-label="Close"><i data-lucide="x"></i></button>
+      </div>
+      <div id="previewBody" class="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-gray-100 p-5">
+        <div id="previewLoading" class="flex flex-col items-center gap-3 text-[13px] font-medium text-ink-3">
+          <div class="spinner"></div>
+          <span>Generating image...</span>
+        </div>
+        <img id="previewImg" style="display:none;" alt="Directory preview" class="max-h-full max-w-full rounded-sm object-contain shadow-lg" />
+      </div>
+      <div class="flex shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-line-soft bg-gray-50 px-5 py-3.5">
+        <span id="previewInfo" class="w-full text-xs text-ink-3 sm:w-auto"></span>
+        <div class="ml-auto flex flex-wrap justify-end gap-2">
+          <button id="btnPreviewCancel" class="btn btn-secondary" type="button">Cancel</button>
+          <button id="btnPreviewSave" class="btn btn-primary" type="button">Save Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div id="availOverlay" class="overlay fixed inset-0 z-[100] items-center justify-center bg-black/30 p-4 backdrop-blur-[3px]">
+    <div class="add-row-modal w-full max-w-[520px] overflow-hidden rounded bg-white shadow-modal animate-modal-in" role="dialog" aria-modal="true" aria-labelledby="availTitle" aria-describedby="availName">
+      <div class="add-row-modal-head flex items-center justify-between gap-3 border-b border-line-soft px-4 py-4">
+        <div class="min-w-0">
+          <h3 id="availTitle" class="text-[15px] font-bold">TA Generator</h3>
+          <p id="availName" class="mt-0.5 truncate text-[12px] text-ink-3"></p>
+        </div>
+        <button id="btnAvailClose" class="btn-close" type="button" aria-label="Close"><i data-lucide="x"></i></button>
+      </div>
+      <form id="availForm" class="add-row-modal-body av-body px-4 py-4" onsubmit="return false">
+        <div id="availDays"></div>
+        <p class="field-label mb-1.5 mt-3">Generated TA</p>
+        <div id="availOutput" class="av-output" aria-live="polite"></div>
+        <p id="availHint" class="mt-2 text-[12px] font-bold text-red-600" role="status" hidden></p>
+      </form>
+      <div class="add-row-modal-foot flex items-center justify-between gap-2 border-t border-line-soft bg-gray-50 px-4 py-3.5">
+        <button id="btnAvailClear" class="btn btn-secondary" type="button">Clear all</button>
+        <div class="flex gap-2">
+          <button id="btnAvailCancel" class="btn btn-secondary" type="button">Cancel</button>
+          <button id="btnAvailSave" class="btn btn-primary" type="button">Save and download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script defer src="https://unpkg.com/lucide@1.73.0/dist/umd/lucide.js"></script>
+<script src="https://www.gstatic.com/firebasejs/13.3.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/13.3.0/firebase-database-compat.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ===== Storage: Firebase Realtime Database (same key and structure as the main app) =====
+     A local cache is kept so the directory paints at once; Firebase is the source of truth. */
+  var AVAIL_KEY = 'crew-scheduler-availability-v1';
+  var firebaseConfig = {
+    apiKey: "AIzaSyAkK0mXoKWohNlVapFRv7EoCwPySubDzkI",
+    authDomain: "louien-cloud.firebaseapp.com",
+    databaseURL: "https://louien-cloud-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "louien-cloud",
+    storageBucket: "louien-cloud.firebasestorage.app",
+    messagingSenderId: "1060435920199",
+    appId: "1:1060435920199:web:6dbe178c53c3dfed913862"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.database();
+  var entriesRef = db.ref(AVAIL_KEY);
+
+  var Store = {
+    load: function () {
+      try {
+        var p = JSON.parse(localStorage.getItem(AVAIL_KEY));
+        return (p && typeof p === 'object' && !Array.isArray(p)) ? p : {};
+      } catch (e) { return {}; }
+    },
+    cache: function (entries) {
+      try {
+        if (Object.keys(entries).length) localStorage.setItem(AVAIL_KEY, JSON.stringify(entries));
+        else localStorage.removeItem(AVAIL_KEY);
+      } catch (e) {}
+    },
+    // live updates from Firebase (also fires for this browser's own writes)
+    listen: function (onRemote) {
+      entriesRef.on('value', function (snap) {
+        var v = snap.val();
+        var obj = (v && typeof v === 'object' && !Array.isArray(v)) ? v : {};
+        Store.cache(obj);
+        onRemote(obj);
+      }, function (err) { console.error(err); });
+    },
+    // one person at a time: writes only that person's TA fields, the name fields stay
+    saveOne: function (key, n) {
+      var upd = toDb(n);
+      return new Promise(function (resolve, reject) {
+        var timer = setTimeout(function () { reject(new Error('Save timed out')); }, 10000);
+        entriesRef.child(key).update(upd).then(function () {
+          clearTimeout(timer); resolve();
+        }, function (err) {
+          clearTimeout(timer); reject(err);
+        });
+      });
+    },
+    // many people at once (TA import and names import): a multi-path update, so nothing else is removed
+    updateMany: function (updates) {
+      return entriesRef.update(updates);
+    }
+  };
+
+  /* ===== Crew list (same names as the main app's directory) ===== */
+  var directoryGroups = [
+    { role: 'CC', rows: [], tbody: 'directoryCC' },
+    { role: 'GEL', rows: [], tbody: 'directoryGEL' },
+    { role: 'CREW', rows: [], tbody: 'directoryCrew' }
+  ];
+  var SECTIONS = ['PRODUCTION', 'SERVICE', 'MARKETING', 'MAINTENANCE'];
+  var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  var SHIFTS = [
+    { v: 'open', l: 'Open', ta: '5AM-11AM' },
+    { v: 'mid', l: 'Mid', ta: '11AM-5PM' },
+    { v: 'close', l: 'Close', ta: '5PM-11PM' },
+    { v: 'specify', l: 'Specify time', ta: 'SPECIFY' },
+    { v: 'rest', l: 'Rest / Not Available', ta: 'REST / N/A' }
+  ];
+
+  var dirLoaded = false, dirError = false;
+  // Placeholder rows that copy the real table: a group header, then person rows with the same cell styling.
+  function skeletonRows(count) {
+    var head = '<tr class="directory-group directory-skeleton" aria-hidden="true"><th colspan="3"><div class="directory-group-line">' +
+      '<span class="sk-bar" style="width:72px;height:10px;background:rgba(255,255,255,.6)"></span>' +
+      '<span class="sk-bar" style="width:56px;height:10px;background:rgba(255,255,255,.6)"></span></div></th></tr>';
+    var html = head;
+    var widths = [['78%', '62%', '70%'], ['64%', '48%', '66%'], ['82%', '55%', '60%'], ['70%', '66%', '74%']];
+    for (var i = 0; i < count; i++) {
+      var w = widths[i % widths.length];
+      html += '<tr class="directory-person directory-skeleton" aria-hidden="true">' +
+        '<td><span class="sk-bar" style="width:' + w[0] + '"></span></td>' +
+        '<td><span class="sk-bar" style="width:' + w[1] + '"></span></td>' +
+        '<td><span class="sk-bar" style="width:' + w[2] + '"></span></td></tr>';
+    }
+    return html;
+  }
+  // One record per person in Firebase: name fields and TA fields together. Rows and TA come from the same data.
+  function applyRemote(obj) {
+    dirLoaded = true; dirError = false;
+    entries = obj;
+    directoryGroups.forEach(function (g) {
+      var people = Object.keys(obj).map(function (k) { return obj[k]; }).filter(function (p) {
+        return p && p.group === g.role && typeof p.nickname === 'string';
+      });
+      people.sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+      g.rows = people.map(function (p) { return [p.nickname, p.firstName || '', p.lastName || '']; });
+    });
+    renderDirectory();
+  }
+  function known_keys() {
+    var out = [];
+    directoryGroups.forEach(function (g) { g.rows.forEach(function (r) { out.push(keyOf(r, g)); }); });
+    return out;
+  }
+
+  var entries = Store.load();  // { "GROUP|NICK|LAST": { days: {Monday: ['open']}, sections: [...], custom: {...} } }
+  var current = null;          // key being edited
+  var specifyTimes = {};       // { Monday: {from, to} } while the dialog is open
+  var dialogTrigger = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function keyOf(row, g) { return g.role + '|' + row[0] + '|' + row[2]; }
+  function dayShort(d) { return d.slice(0, 3); }
+  function hourLabel(h) { if (h === 0) return '12AM'; if (h < 12) return h + 'AM'; if (h === 12) return '12NN'; return (h - 12) + 'PM'; }
+  function taFormat(a, b) { return hourLabel(a) + '-' + hourLabel(b); }
+  function shiftOk(v) { return SHIFTS.some(function (s) { return s.v === v; }); }
+
+  // Same shape as the main app. Also accepts the older shape.
+  function normalize(e) {
+    var out = { days: {}, sections: [], custom: {} };
+    if (!e || typeof e !== 'object') return out;
+    var days = (e.days && typeof e.days === 'object') ? e.days : (Array.isArray(e.sections) ? {} : e);
+    DAYS.forEach(function (d) {
+      var v = days[d];
+      var list;
+      if (v && typeof v === 'object' && !Array.isArray(v)) {
+        // database format: { open: true, mid: false, close: false, specify: false, rest: false }
+        list = SHIFTS.map(function (sh) { return sh.v; }).filter(function (k) { return v[k] === true; });
+      } else {
+        list = Array.isArray(v) ? v : (typeof v === 'string' ? [v] : []);
+      }
+      list = list.filter(shiftOk);
+      if (list.indexOf('rest') !== -1) list = ['rest'];
+      if (list.indexOf('specify') !== -1) list = ['specify'];
+      var c = (e.custom && typeof e.custom === 'object') ? e.custom[d] : null;
+      if (list[0] === 'specify') {
+        var t = c && c.specify, from = t && Number(t.from), to = t && Number(t.to);
+        if (!t || !isFinite(from) || !isFinite(to) || from < 0 || to < 0 || from > 23 || to > 23 || from === to) list = [];
+        else out.custom[d] = { specify: { from: from, to: to } };
+      }
+      if (list.length) out.days[d] = list;
+    });
+    if (Array.isArray(e.sections)) out.sections = SECTIONS.filter(function (x) { return e.sections.indexOf(x) !== -1; });
+    else if (e.sections && typeof e.sections === 'object') out.sections = SECTIONS.filter(function (x) { return e.sections[x] === true; });
+    return out;
+  }
+  function hasData(n) { return Object.keys(n.days).length > 0 || n.sections.length > 0; }
+  // Database shape for one person's TA. Every shift and section is stored as true (selected) or false.
+  function toDb(n) {
+    var out = { days: null, sections: null, custom: null };
+    if (Object.keys(n.days).length) {
+      out.days = {};
+      DAYS.forEach(function (d) {
+        if (!n.days[d]) return;
+        var row = {};
+        SHIFTS.forEach(function (sh) { row[sh.v] = n.days[d].indexOf(sh.v) !== -1; });
+        out.days[d] = row;
+      });
+    }
+    if (n.sections.length) {
+      out.sections = {};
+      SECTIONS.forEach(function (x) { out.sections[x] = n.sections.indexOf(x) !== -1; });
+    }
+    if (Object.keys(n.custom).length) out.custom = n.custom;
+    return out;
+  }
+  function hasTA(key) { return hasData(normalize(entries[key])); }
+
+  /* ===== Directory (same markup classes as the main app) ===== */
+  function renderDirectory() {
+    if (!dirLoaded) {
+      var skel = { CC: 5, GEL: 8, CREW: 10 };
+      directoryGroups.forEach(function (g) {
+        var body = $(g.tbody);
+        body.hidden = false;
+        body.innerHTML = dirError ? '' : skeletonRows(skel[g.role] || 6);
+        body.className = body.className.replace(/\s*directory-skeleton-body/g, '') + ' directory-skeleton-body';
+      });
+      $('directoryEmpty').hidden = !dirError;
+      if (dirError) $('directoryEmpty').querySelector('td').textContent = 'Could not load the crew names. Check the internet connection.';
+      $('directoryCount').textContent = dirError ? '' : 'Loading names...';
+      return;
+    }
+    var q = $('directorySearch').value.trim().toLowerCase();
+    var terms = q ? q.split(/\s+/) : [];
+    var count = 0, total = 0;
+    directoryGroups.forEach(function (g) {
+      total += g.rows.length;
+      var body = $(g.tbody);
+      var rows = g.rows.filter(function (r) {
+        var hay = [r[0], r[1], r[2], g.role].join(' ').toLowerCase();
+        return terms.every(function (t) { return hay.indexOf(t) !== -1; });
+      });
+      count += rows.length;
+      body.hidden = rows.length === 0;
+      if (!rows.length) { body.innerHTML = ''; return; }
+      var html = '<tr class="directory-group"><th scope="rowgroup" colspan="3"><div class="directory-group-line"><span>' +
+        esc(g.role) + '</span><span class="directory-group-count">' + rows.length + (rows.length === 1 ? ' person' : ' people') + '</span></div></th></tr>';
+      rows.forEach(function (r) {
+        var key = keyOf(r, g);
+        var has = hasTA(key);
+        html += '<tr class="directory-person is-clickable" tabindex="0" aria-haspopup="dialog" data-key="' + esc(key) + '"><td class="directory-name-cell">' +
+          '<span class="ta-dot' + (has ? ' has' : '') + '" role="img" aria-label="' + (has ? 'TA saved' : 'No TA saved') + '"></span>' +
+          esc(r[0]) + '</td><td>' + (r[1] ? esc(r[1]) : '<span class="directory-muted">—</span>') + '</td><td>' + esc(r[2]) + '</td></tr>';
+      });
+      body.innerHTML = html;
+    });
+    $('directoryEmpty').hidden = count !== 0;
+    $('directoryEmpty').querySelector('td').textContent = total ? 'No names found. Try a different search.' : 'No names yet. The admin adds the crew list.';
+    $('directoryCount').textContent = q ? count + ' of ' + total + ' names' : total + ' names';
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  function findPerson(key) {
+    var found = null;
+    directoryGroups.forEach(function (g) { g.rows.forEach(function (r) { if (keyOf(r, g) === key) found = { row: r, group: g }; }); });
+    return found;
+  }
+
+  /* ===== TA dialog (same markup classes as the main app) ===== */
+  function openTA(key, trigger) {
+    var p = findPerson(key);
+    if (!p) return;
+    current = key;
+    dialogTrigger = trigger || null;
+    $('availName').textContent = p.row[0] + ' ' + p.row[2] + ' · ' + p.group.role;
+    // Every open starts blank, so the person picks their TA again. The saved TA in the database is replaced only when they save.
+    var saved = normalize({});
+    specifyTimes = {};
+    Object.keys(saved.custom).forEach(function (d) { specifyTimes[d] = { from: saved.custom[d].specify.from, to: saved.custom[d].specify.to }; });
+
+    var html = '<p style="margin:0 0 4px;font-size:12px;color:#6c757d">You can select more than one option in each list.</p>' +
+      '<fieldset class="av-day"><legend>Can duty in</legend><div class="av-opts av-grid av-grid-2">';
+    SECTIONS.forEach(function (sec) {
+      var id = 'av-sec-' + sec;
+      html += '<input class="av-input" type="checkbox" name="av-sec" id="' + id + '" value="' + sec + '"' + (saved.sections.indexOf(sec) !== -1 ? ' checked' : '') + '>' +
+        '<label class="av-opt" for="' + id + '">' + sec + '</label>';
+    });
+    html += '</div></fieldset>';
+
+    DAYS.forEach(function (d) {
+      var s = dayShort(d), list = saved.days[d] || [];
+      html += '<fieldset class="av-day"><legend>' + d + '</legend><div class="av-opts av-grid">';
+      SHIFTS.forEach(function (sh) {
+        var id = 'av-' + s + '-' + sh.v;
+        html += '<input class="av-input" type="checkbox" name="av-' + s + '" id="' + id + '" value="' + sh.v + '" data-day="' + d + '" data-v="' + sh.v + '"' + (list.indexOf(sh.v) !== -1 ? ' checked' : '') + '>' +
+          '<label class="av-opt' + (sh.v === 'specify' || sh.v === 'rest' ? ' av-wide' : '') + '" for="' + id + '">' + sh.l + '</label>';
+      });
+      html += '</div><div class="av-times" id="av-times-' + s + '"></div></fieldset>';
+    });
+    $('availDays').innerHTML = html;
+    syncRules(null);
+    renderTimes();
+    updateOutput();
+    $('availOverlay').classList.add('open');
+    if (window.lucide) window.lucide.createIcons();
+    requestAnimationFrame(function () {
+      var first = document.querySelector('#availForm input.av-input:checked') || document.querySelector('#availForm input.av-input');
+      if (first) first.focus();
+    });
+  }
+
+  function shiftBox(d, v) { return document.querySelector('#availDays input.av-input[data-day="' + d + '"][data-v="' + v + '"]'); }
+
+  function readForm() {
+    var out = { days: {}, sections: [], custom: {} };
+    out.sections = Array.prototype.slice.call(document.querySelectorAll('#availDays input[name="av-sec"]:checked')).map(function (i) { return i.value; });
+    DAYS.forEach(function (d) {
+      var list = Array.prototype.slice.call(document.querySelectorAll('#availDays input.av-input[data-day="' + d + '"]:checked:not(:disabled)')).map(function (i) { return i.dataset.v; });
+      if (list.length) out.days[d] = list;
+      if (list.indexOf('specify') !== -1 && specifyTimes[d]) out.custom[d] = { specify: { from: specifyTimes[d].from, to: specifyTimes[d].to } };
+    });
+    return out;
+  }
+
+  function renderOutput(sel) {
+    var lines = DAYS.map(function (d) {
+      var list = sel.days[d];
+      if (!list || !list.length) return d + ': —';
+      if (list.indexOf('rest') !== -1) return d + ': REST / N/A';
+      if (list.indexOf('specify') !== -1) {
+        var c = sel.custom[d] && sel.custom[d].specify;
+        return d + ': SPECIFY ' + (c ? taFormat(c.from, c.to) : '—');
+      }
+      return d + ': ' + SHIFTS.filter(function (sh) { return list.indexOf(sh.v) !== -1; }).map(function (sh) {
+        return sh.v === 'rest' ? sh.ta : sh.v.toUpperCase() + ' ' + sh.ta;
+      }).join(' / ');
+    });
+    lines.push('Sections: ' + (sel.sections.length ? sel.sections.join(', ') : '—'));
+    return lines.join('\n');
+  }
+
+  function updateOutput() {
+    var sel = readForm();
+    $('availOutput').textContent = renderOutput(sel);
+    // Every day (Monday to Sunday) needs a shift before the TA can be saved.
+    var missing = DAYS.filter(function (d) { return !(sel.days[d] && sel.days[d].length); });
+    var timeErr = !!document.querySelector('#availDays .av-time-err');
+    var hint = $('availHint');
+    var msg = missing.length ? 'Choose a shift for every day. Missing: ' + missing.join(', ') + '.' : '';
+    hint.textContent = msg;
+    hint.hidden = !msg;
+    $('btnAvailSave').disabled = timeErr;
+  }
+
+  // Days are locked until at least one "Can duty in" section is ticked.
+  // Rest is exclusive. Specify time is exclusive with Open, Mid and Close.
+  function syncRules(changed) {
+    var anySec = !!document.querySelector('#availDays input[name="av-sec"]:checked');
+    if (!anySec) {
+      document.querySelectorAll('#availDays input.av-input[data-day]').forEach(function (i) { i.checked = false; });
+    }
+    DAYS.forEach(function (d) {
+      var rest = shiftBox(d, 'rest');
+      var on = !!(rest && rest.checked);
+      if (changed && changed.dataset && changed.dataset.day === d && changed.checked) {
+        if (changed.dataset.v === 'specify') {
+          ['open', 'mid', 'close'].forEach(function (v) { var el = shiftBox(d, v); if (el) el.checked = false; });
+        } else if (['open', 'mid', 'close'].indexOf(changed.dataset.v) !== -1) {
+          var sp = shiftBox(d, 'specify'); if (sp) sp.checked = false;
+        }
+      }
+      ['open', 'mid', 'close', 'specify', 'rest'].forEach(function (v) {
+        var el = shiftBox(d, v);
+        if (!el) return;
+        if (on && v !== 'rest') el.checked = false;
+        el.disabled = !anySec || (on && v !== 'rest');
+      });
+    });
+  }
+
+  function renderTimes() {
+    DAYS.forEach(function (d) {
+      var box = $('av-times-' + dayShort(d));
+      if (!box) return;
+      var on = shiftBox(d, 'specify');
+      if (!on || !on.checked) { box.innerHTML = ''; return; }
+      var t = specifyTimes[d] || (specifyTimes[d] = { from: 9, to: 17 });
+      var opts = function (sel) {
+        var h = '';
+        for (var k = 0; k < 24; k++) h += '<option value="' + k + '"' + (k === sel ? ' selected' : '') + '>' + hourLabel(k) + '</option>';
+        return h;
+      };
+      box.innerHTML = '<div class="av-time-row">' +
+        '<label class="av-time-lbl">from <select class="av-time-sel" data-day="' + d + '" data-end="from" aria-label="' + d + ' from">' + opts(t.from) + '</select></label>' +
+        '<label class="av-time-lbl">to <select class="av-time-sel" data-day="' + d + '" data-end="to" aria-label="' + d + ' to">' + opts(t.to) + '</select></label>' +
+        (t.from === t.to ? '<span class="av-time-err">Start and end must differ</span>' : '') + '</div>';
+    });
+  }
+
+  $('availForm').addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.tagName === 'SELECT') {
+      specifyTimes[t.dataset.day] = specifyTimes[t.dataset.day] || { from: 9, to: 17 };
+      specifyTimes[t.dataset.day][t.dataset.end] = Number(t.value);
+    } else if (t.classList.contains('av-input')) {
+      syncRules(t);
+    }
+    syncRules(null);
+    renderTimes();
+    updateOutput();
+  });
+
+  function closeTA(restoreFocus) {
+    $('availOverlay').classList.remove('open');
+    current = null;
+    if (restoreFocus && dialogTrigger && dialogTrigger.focus) dialogTrigger.focus();
+    var back = returnTo;
+    returnTo = null;
+    if (back === 'person' && returnKey) openPersonPreview(returnKey, personPreviewTrigger);
+    returnKey = null;
+  }
+
+  function showToast(message, ms) {
+    var t = document.getElementById('appToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'appToast';
+      t.className = 'app-toast';
+      t.setAttribute('role', 'status');
+      t.setAttribute('aria-live', 'polite');
+      document.body.appendChild(t);
+    }
+    t.textContent = message;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function () { t.classList.remove('show'); }, ms || 3000);
+  }
+
+  $('btnAvailSave').addEventListener('click', function () {
+    if (!current) return;
+    var n = readForm();
+    var noDay = DAYS.some(function (d) { return !(n.days[d] && n.days[d].length); });
+    if (noDay) { showToast('All days are required. Fill out a shift for every day, Monday to Sunday.'); return; }
+    if (hasData(n)) entries[current] = n; else delete entries[current];
+    var key = current;
+    // Private: after saving, no preview opens. The person gets their own TA as an image instead.
+    returnTo = null;
+    returnKey = null;
+    Store.saveOne(key, n).then(function () {
+      showToast('Saved to the database. Downloading your TA image...');
+      downloadPersonImage(key, n);
+    }, function (err) {
+      console.error(err);
+      showToast('Not saved. Check the internet connection and save again.', 8000);
+    });
+    closeTA(false);
+    renderDirectory();
+    var row = document.querySelector('tr.directory-person[data-key="' + CSS.escape(key) + '"]');
+    if (row) row.focus();
+  });
+  $('btnAvailCancel').addEventListener('click', function () { closeTA(true); });
+  $('btnAvailClose').addEventListener('click', function () { closeTA(true); });
+  $('btnAvailClear').addEventListener('click', function () {
+    document.querySelectorAll('#availDays input.av-input').forEach(function (i) { i.checked = false; i.disabled = false; });
+    specifyTimes = {};
+    syncRules(null);
+    renderTimes();
+    updateOutput();
+  });
+  $('availOverlay').addEventListener('click', function (e) { if (e.target === this) closeTA(true); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $('availOverlay').classList.contains('open')) closeTA(true);
+  });
+
+  /* ===== Open a person: click, Enter or Space ===== */
+  $('directoryCard').addEventListener('click', function (e) {
+    var tr = e.target.closest('tr.directory-person');
+    if (tr) openTA(tr.dataset.key, tr); // no preview: a name opens the TA editor only
+  });
+  $('directoryCard').addEventListener('keydown', function (e) {
+    var tr = e.target.closest && e.target.closest('tr.directory-person');
+    if (tr && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openTA(tr.dataset.key, tr); }
+  });
+
+  $('directorySearch').addEventListener('input', renderDirectory);
+
+  /* ===== Backup menu: export and import (same file format as the main app) ===== */
+  function setMenu(open) {
+    $('directoryMenuPanel').hidden = !open;
+    $('btnDirectoryMenu').setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  $('btnDirectoryMenu').addEventListener('click', function (e) {
+    e.stopPropagation();
+    setMenu($('directoryMenuPanel').hidden);
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('.dir-menu')) setMenu(false);
+  });
+
+  function showStatus(msg) {
+    var s = $('directoryStatus');
+    s.textContent = msg;
+    s.hidden = false;
+    clearTimeout(showStatus._t);
+    showStatus._t = setTimeout(function () { s.hidden = true; }, 3500);
+  }
+
+  $('btnDirectorySaveJson').addEventListener('click', function () {
+    setMenu(false);
+    var now = new Date();
+    var payload = { format: 'crew-directory-backup', version: 1, exportedAt: now.toISOString(), entries: entries };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'crew-directory-backup-' + now.toISOString().slice(0, 10) + '.json';
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+  $('btnDirectoryImport').addEventListener('click', function () { setMenu(false); $('directoryImportFile').click(); });
+  $('directoryImportFile').addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    this.value = '';
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var obj;
+      try { obj = JSON.parse(reader.result); } catch (err) { showStatus('That file is not valid JSON.'); return; }
+      if (!obj || obj.format !== 'crew-directory-backup' || !obj.entries || typeof obj.entries !== 'object') {
+        showStatus('That file is not a crew directory backup.');
+        return;
+      }
+      var known = {};
+      directoryGroups.forEach(function (g) { g.rows.forEach(function (r) { known[keyOf(r, g)] = true; }); });
+      var next = {}, count = 0;
+      Object.keys(obj.entries).forEach(function (k) {
+        if (!known[k]) return;
+        var n = normalize(obj.entries[k]);
+        if (hasData(n)) { next[k] = n; count++; }
+      });
+      var updates = {};
+      known_keys().forEach(function (k) {
+        var d = toDb(next[k] || { days: {}, sections: [], custom: {} });
+        updates[k + '/days'] = d.days;
+        updates[k + '/sections'] = d.sections;
+        updates[k + '/custom'] = d.custom;
+      });
+      Store.updateMany(updates).then(function () {
+        showStatus('Imported TA for ' + count + ' people.');
+      }, function (err) {
+        console.error(err);
+        showStatus('TA not saved. Check the internet connection and import again.');
+      });
+    };
+    reader.onerror = function () { showStatus('The file could not be read.'); };
+    reader.readAsText(file);
+  });
+
+  /* ===== Person preview: click a name to see that person's TA, day by day ===== */
+  var personPreviewKey = null, personPreviewTrigger = null, returnTo = null, returnKey = null;
+  function personInfo(key) {
+    var found = null;
+    directoryGroups.forEach(function (g) { g.rows.forEach(function (r) { if (keyOf(r, g) === key) found = { r: r, g: g }; }); });
+    return found;
+  }
+  function openPersonPreview(key, trigger) {
+    var info = personInfo(key);
+    if (!info) return;
+    personPreviewKey = key;
+    personPreviewTrigger = trigger || null;
+    $('personPreviewTitle').textContent = info.r[0] + ' ' + info.r[2];
+    $('personPreviewSub').textContent = info.g.role + (info.r[1] ? ' · ' + info.r[1] : '');
+    var sel = normalize(entries[key]);
+    var html;
+    if (!hasData(sel)) {
+      html = '<p class="py-6 text-center text-[13px] text-ink-3">No TA saved yet.</p>';
+    } else {
+      html = '<div class="mb-3 rounded-sm bg-gray-50 px-3 py-2 text-[12px] text-gray-700"><span class="font-bold">Can duty in:</span> ' +
+        (sel.sections.length ? esc(sel.sections.join(', ')) : '—') + '</div>';
+      html += DAYS.map(function (d) {
+        var t = taCellText(sel.days[d], sel, d);
+        return '<div class="flex items-baseline justify-between gap-3 border-b border-line-soft py-2 last:border-b-0">' +
+          '<span class="text-[13px] font-bold text-gray-800">' + d + '</span>' +
+          '<span class="text-right text-[13px] ' + (t === '—' ? 'text-gray-300' : 'text-gray-800') + '">' + esc(t) + '</span></div>';
+      }).join('');
+    }
+    $('personPreviewBody').innerHTML = html;
+    $('personPreviewOverlay').classList.add('open');
+    requestAnimationFrame(function () { $('btnPersonPreviewEdit').focus(); });
+  }
+  function closePersonPreview(restoreFocus) {
+    $('personPreviewOverlay').classList.remove('open');
+    if (restoreFocus && personPreviewTrigger && personPreviewTrigger.isConnected) personPreviewTrigger.focus();
+  }
+  function editFromPersonPreview() {
+    var key = personPreviewKey;
+    var info = personInfo(key);
+    if (!info) return;
+    closePersonPreview(false);
+    returnTo = 'person';
+    returnKey = key;
+    openTA(key, personPreviewTrigger);
+  }
+  $('btnPersonPreviewClose').addEventListener('click', function () { closePersonPreview(true); });
+  $('btnPersonPreviewEdit').addEventListener('click', editFromPersonPreview);
+  $('personPreviewOverlay').addEventListener('click', function (e) { if (e.target === this) closePersonPreview(true); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $('personPreviewOverlay').classList.contains('open')) closePersonPreview(true);
+  });
+
+  function taCellText(list, sel, d) {
+    if (!list || !list.length) return '—';
+    if (list.indexOf('rest') !== -1) return 'REST / N/A';
+    if (list.indexOf('specify') !== -1) {
+      var c = sel.custom && sel.custom[d] && sel.custom[d].specify;
+      return 'SPECIFY ' + (c ? taFormat(c.from, c.to) : '—');
+    }
+    return SHIFTS.filter(function (sh) { return list.indexOf(sh.v) !== -1; }).map(function (sh) {
+      return sh.v.toUpperCase();
+    }).join(' / ');
+  }
+  /* ===== Save as Image (directory): every name, with the TA indicator; the saved image is also the link preview cover ===== */
+  var h2cLoader = null, capturedDataURL = null, captureFilePrefix = 'crew-directory-';
+  function loadHtml2canvas() {
+    if (window.html2canvas) return Promise.resolve(window.html2canvas);
+    if (!h2cLoader) h2cLoader = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      s.onload = function () { resolve(window.html2canvas); };
+      s.onerror = function () { h2cLoader = null; reject(new Error('Failed to load html2canvas')); };
+      document.head.appendChild(s);
+    });
+    return h2cLoader;
+  }
+  function buildDirectoryExport() {
+    var total = 0, withTa = 0;
+    directoryGroups.forEach(function (g) {
+      g.rows.forEach(function (r) { total++; if (hasTA(keyOf(r, g))) withTa++; });
+    });
+    var wrap = document.createElement('div');
+    wrap.className = 'directory-export';
+    wrap.style.cssText = 'position:absolute;left:-99999px;top:0;background:#fff;padding:20px 22px;border:1px solid #adb5bd;width:max-content;';
+    var head = document.createElement('div');
+    head.style.cssText = 'margin:0 0 14px;padding:0;background:#fff;color:#18181b;';
+    head.innerHTML =
+      '<div class="directory-title" style="color:#18181b">' + esc($('directoryCard').querySelector('.directory-title').textContent) + '</div>' +
+      '<div class="directory-subtitle" style="color:#71717a">' + esc($('directoryCard').querySelector('.directory-subtitle').textContent) + '</div>' +
+      '<div style="margin-top:10px;font-size:12px;color:#3f3f46">' +
+        '<span class="ta-dot has" style="border-color:#16a34a;background:#16a34a"></span>TA declared (' + withTa + ')&nbsp;&nbsp;&nbsp;' +
+        '<span class="ta-dot" style="border-color:#a1a1aa"></span>No TA yet (' + (total - withTa) + ')&nbsp;&nbsp;·&nbsp;' + total + ' names' +
+      '</div>';
+    var table = $('directoryTable').cloneNode(true);
+    table.removeAttribute('id');
+    table.style.minWidth = '';
+    var html = '';
+    directoryGroups.forEach(function (g) {
+      var bar = { CC: '#c92a2a', GEL: '#2f9e44', CREW: '#1c7ed6' }[g.role] || '#8a949e';
+      html += '<tr class="directory-group"><th scope="rowgroup" colspan="3" style="background:' + bar + ';--directory-group-border:' + bar + ';box-shadow:none;color:#fff"><div class="directory-group-line"><span>' +
+        esc(g.role) + '</span><span class="directory-group-count" style="color:#fff">' + g.rows.length + (g.rows.length === 1 ? ' person' : ' people') + '</span></div></th></tr>';
+      g.rows.forEach(function (r) {
+        var has = hasTA(keyOf(r, g));
+        html += '<tr class="directory-person"><td><span class="ta-dot' + (has ? ' has' : '') + '"></span>' + esc(r[0]) + '</td><td>' +
+          (r[1] ? esc(r[1]) : '—') + '</td><td>' + esc(r[2]) + '</td></tr>';
+      });
+    });
+    Array.prototype.slice.call(table.querySelectorAll('tbody, tfoot')).forEach(function (el) { el.remove(); });
+    var tbody = document.createElement('tbody');
+    tbody.innerHTML = html;
+    table.appendChild(tbody);
+    var colW = Array.prototype.slice.call(table.querySelectorAll('colgroup col')).reduce(function (n, c) { return n + (parseFloat(c.style.width) || 0); }, 0);
+    // size the copy to its content (the live table is fluid and would stretch the capture)
+    table.style.width = colW ? colW + 'px' : 'max-content';
+    wrap.style.width = colW ? (colW + 44) + 'px' : 'max-content';
+    table.style.maxWidth = 'none';
+    wrap.appendChild(head);
+    wrap.appendChild(table);
+    return wrap;
+  }
+  async function previewDirectoryImage() {
+    var overlay = $('previewOverlay'), loading = $('previewLoading'), img = $('previewImg'), info = $('previewInfo');
+    overlay.classList.add('open');
+    loading.innerHTML = '<div class="spinner"></div><span>Generating image...</span>';
+    loading.style.display = 'flex';
+    img.style.display = 'none';
+    img.removeAttribute('src');
+    info.textContent = '';
+    capturedDataURL = null;
+    var wrap = null;
+    try {
+      var h2c = await loadHtml2canvas();
+      wrap = buildDirectoryExport();
+      document.body.appendChild(wrap);
+      await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
+      var canvas = await h2c(wrap, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
+      capturedDataURL = canvas.toDataURL('image/jpeg', 0.95);
+      img.src = capturedDataURL;
+      img.style.display = 'block';
+      loading.style.display = 'none';
+      var sizeKB = Math.round(capturedDataURL.length * 3 / 4 / 1024);
+      info.textContent = canvas.width + ' × ' + canvas.height + ' px  ·  JPG  ·  ~' + sizeKB + ' KB';
+    } catch (err) {
+      loading.innerHTML = '<span style="color:#e03131;font-weight:600;">Error generating image</span>';
+      console.error(err);
+    } finally {
+      if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+    }
+  }
+  function closePreview() {
+    $('previewOverlay').classList.remove('open');
+    capturedDataURL = null;
+  }
+  function downloadImage() {
+    if (!capturedDataURL) return;
+    var a = document.createElement('a');
+    a.href = capturedDataURL;
+    var now = new Date();
+    var ts = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0') + '_' +
+      String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+    a.download = captureFilePrefix + ts + '.jpg';
+    a.click();
+  }
+  // One person's TA as a JPG, downloaded only to the person who saved it (no other crew see it).
+  async function downloadPersonImage(key, entry) {
+    var info = personInfo(key);
+    if (!info) return;
+    var sel = normalize(entry);
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'position:fixed;left:-10000px;top:0;width:420px;padding:24px;background:#ffffff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#18181b;box-sizing:border-box';
+    var html = '<div style="font-size:18px;font-weight:700">' + esc(info.r[0] + ' ' + info.r[2]) + '</div>' +
+      '<div style="margin-top:4px;font-size:13px;color:#71717a">' + esc(info.g.role + (info.r[1] ? ' · ' + info.r[1] : '')) + '</div>' +
+      '<div style="margin:16px 0 8px;padding:8px 12px;background:#f4f4f5;border-radius:6px;font-size:13px"><b>Can duty in:</b> ' +
+      esc(sel.sections.length ? sel.sections.join(', ') : '—') + '</div>';
+    html += DAYS.map(function (d) {
+      var t = taCellText(sel.days[d], sel, d);
+      return '<div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e4e4e7;font-size:13px">' +
+        '<span style="font-weight:700">' + d + '</span><span style="color:' + (t === '—' ? '#a1a1aa' : '#18181b') + '">' + esc(t) + '</span></div>';
+    }).join('');
+    wrap.innerHTML = html;
+    document.body.appendChild(wrap);
+    try {
+      var h2c = await loadHtml2canvas();
+      var canvas = await h2c(wrap, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
+      var a = document.createElement('a');
+      a.href = canvas.toDataURL('image/jpeg', 0.95);
+      a.download = ('TA-' + info.r[0] + '-' + info.r[2]).replace(/\s+/g, '_') + '.jpg';
+      a.click();
+    } catch (err) {
+      console.error(err);
+      showToast('Saved, but the image could not be made. Try again from the TA list.', 8000);
+    } finally {
+      if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+    }
+  }
+  $('btnDirectoryImage').addEventListener('click', function () { setMenu(false); previewDirectoryImage(); });
+  $('btnPreviewClose').addEventListener('click', closePreview);
+  $('btnPreviewCancel').addEventListener('click', closePreview);
+  $('btnPreviewSave').addEventListener('click', downloadImage);
+  $('previewOverlay').addEventListener('click', function (e) { if (e.target === this) closePreview(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $('previewOverlay').classList.contains('open')) closePreview();
+  });
+
+  renderDirectory();
+  Store.listen(applyRemote);
+  setTimeout(function () { if (!dirLoaded) { dirError = true; renderDirectory(); } }, 12000);
+  // The icon script loads after this runs, so draw the icons again once the page has loaded.
+  window.addEventListener('load', function () { if (window.lucide) window.lucide.createIcons(); });
+})();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5c3be480ba76dc3',t:'MTc5NDk3MTAxOQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5c3be480ba76dc3',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
