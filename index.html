@@ -574,17 +574,6 @@
               <span class="sr-only">Search the crew directory</span>
               <input id="directorySearch" type="search" placeholder="Search names or role..." autocomplete="off" spellcheck="false" />
             </label>
-            <div class="dir-actions">
-            <div class="dir-menu">
-              <button id="btnDirectoryMenu" class="dir-menu-btn" type="button" aria-label="Directory backup options" aria-haspopup="menu" aria-expanded="false" aria-controls="directoryMenuPanel"><i data-lucide="ellipsis-vertical"></i></button>
-              <div id="directoryMenuPanel" class="dir-menu-panel" role="menu" aria-label="Directory backup" hidden>
-                <button id="btnDirectorySaveJson" type="button" role="menuitem" title="Download a JSON backup of the directory TA data">Export as JSON</button>
-                <button id="btnDirectoryImport" type="button" role="menuitem" title="Restore the directory TA data from a JSON backup">Import JSON</button>
-                <button id="btnDirectoryImage" type="button" role="menuitem" title="Save the full directory as an image (also used as the link preview cover)">Save as Image</button>
-              </div>
-            </div>
-            </div>
-            <input id="directoryImportFile" type="file" accept="application/json,.json" hidden />
             <span id="directoryStatus" class="directory-status" role="status" hidden></span>
           </div>
         </div>
@@ -615,29 +604,6 @@
       <div id="personPreviewBody" class="min-h-0 flex-1 overflow-y-auto px-4 py-3"></div>
       <div class="flex items-center justify-start gap-2 border-t border-line-soft bg-gray-50 px-4 py-3.5">
         <button id="btnPersonPreviewEdit" class="btn btn-primary" type="button">Edit</button>
-      </div>
-    </div>
-  </div>
-
-<div id="previewOverlay" class="preview-overlay fixed inset-0 z-[200] items-center justify-center bg-black/55 p-5 backdrop-blur-[6px]">
-    <div class="preview-modal flex w-[820px] max-w-[92vw] animate-modal-in flex-col overflow-hidden rounded bg-white shadow-modal-xl max-nav:w-[98vw]">
-      <div class="flex shrink-0 items-center justify-between border-b border-line-soft px-5 py-4">
-        <h3 class="text-[15px] font-bold">Image Preview</h3>
-        <button id="btnPreviewClose" class="btn-close" type="button" aria-label="Close"><i data-lucide="x"></i></button>
-      </div>
-      <div id="previewBody" class="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-gray-100 p-5">
-        <div id="previewLoading" class="flex flex-col items-center gap-3 text-[13px] font-medium text-ink-3">
-          <div class="spinner"></div>
-          <span>Generating image...</span>
-        </div>
-        <img id="previewImg" style="display:none;" alt="Directory preview" class="max-h-full max-w-full rounded-sm object-contain shadow-lg" />
-      </div>
-      <div class="flex shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-line-soft bg-gray-50 px-5 py-3.5">
-        <span id="previewInfo" class="w-full text-xs text-ink-3 sm:w-auto"></span>
-        <div class="ml-auto flex flex-wrap justify-end gap-2">
-          <button id="btnPreviewCancel" class="btn btn-secondary" type="button">Cancel</button>
-          <button id="btnPreviewSave" class="btn btn-primary" type="button">Save Image</button>
-        </div>
       </div>
     </div>
   </div>
@@ -1116,77 +1082,6 @@
 
   $('directorySearch').addEventListener('input', renderDirectory);
 
-  /* ===== Backup menu: export and import (same file format as the main app) ===== */
-  function setMenu(open) {
-    $('directoryMenuPanel').hidden = !open;
-    $('btnDirectoryMenu').setAttribute('aria-expanded', open ? 'true' : 'false');
-  }
-  $('btnDirectoryMenu').addEventListener('click', function (e) {
-    e.stopPropagation();
-    setMenu($('directoryMenuPanel').hidden);
-  });
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest || !e.target.closest('.dir-menu')) setMenu(false);
-  });
-
-  function showStatus(msg) {
-    var s = $('directoryStatus');
-    s.textContent = msg;
-    s.hidden = false;
-    clearTimeout(showStatus._t);
-    showStatus._t = setTimeout(function () { s.hidden = true; }, 3500);
-  }
-
-  $('btnDirectorySaveJson').addEventListener('click', function () {
-    setMenu(false);
-    var now = new Date();
-    var payload = { format: 'crew-directory-backup', version: 1, exportedAt: now.toISOString(), entries: entries };
-    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'crew-directory-backup-' + now.toISOString().slice(0, 10) + '.json';
-    a.click();
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-  });
-  $('btnDirectoryImport').addEventListener('click', function () { setMenu(false); $('directoryImportFile').click(); });
-  $('directoryImportFile').addEventListener('change', function () {
-    var file = this.files && this.files[0];
-    this.value = '';
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function () {
-      var obj;
-      try { obj = JSON.parse(reader.result); } catch (err) { showStatus('That file is not valid JSON.'); return; }
-      if (!obj || obj.format !== 'crew-directory-backup' || !obj.entries || typeof obj.entries !== 'object') {
-        showStatus('That file is not a crew directory backup.');
-        return;
-      }
-      var known = {};
-      directoryGroups.forEach(function (g) { g.rows.forEach(function (r) { known[keyOf(r, g)] = true; }); });
-      var next = {}, count = 0;
-      Object.keys(obj.entries).forEach(function (k) {
-        if (!known[k]) return;
-        var n = normalize(obj.entries[k]);
-        if (hasData(n)) { next[k] = n; count++; }
-      });
-      var updates = {};
-      known_keys().forEach(function (k) {
-        var d = toDb(next[k] || { days: {}, sections: [], custom: {} });
-        updates[k + '/days'] = d.days;
-        updates[k + '/sections'] = d.sections;
-        updates[k + '/custom'] = d.custom;
-      });
-      Store.updateMany(updates).then(function () {
-        showStatus('Imported TA for ' + count + ' people.');
-      }, function (err) {
-        console.error(err);
-        showStatus('TA not saved. Check the internet connection and import again.');
-      });
-    };
-    reader.onerror = function () { showStatus('The file could not be read.'); };
-    reader.readAsText(file);
-  });
 
   /* ===== Person preview: click a name to see that person's TA, day by day ===== */
   var personPreviewKey = null, personPreviewTrigger = null, returnTo = null, returnKey = null;
@@ -1264,93 +1159,6 @@
     });
     return h2cLoader;
   }
-  function buildDirectoryExport() {
-    var total = 0, withTa = 0;
-    directoryGroups.forEach(function (g) {
-      g.rows.forEach(function (r) { total++; if (hasTA(keyOf(r, g))) withTa++; });
-    });
-    var wrap = document.createElement('div');
-    wrap.className = 'directory-export';
-    wrap.style.cssText = 'position:absolute;left:-99999px;top:0;background:#fff;padding:20px 22px;border:1px solid #adb5bd;width:max-content;';
-    var head = document.createElement('div');
-    head.style.cssText = 'margin:0 0 14px;padding:0;background:#fff;color:#18181b;';
-    head.innerHTML =
-      '<div class="directory-title" style="color:#18181b">' + esc($('directoryCard').querySelector('.directory-title').textContent) + '</div>' +
-      '<div class="directory-subtitle" style="color:#71717a">' + esc($('directoryCard').querySelector('.directory-subtitle').textContent) + '</div>' +
-      '<div style="margin-top:10px;font-size:12px;color:#3f3f46">' +
-        '<span class="ta-dot has" style="border-color:#16a34a;background:#16a34a"></span>TA declared (' + withTa + ')&nbsp;&nbsp;&nbsp;' +
-        '<span class="ta-dot" style="border-color:#a1a1aa"></span>No TA yet (' + (total - withTa) + ')&nbsp;&nbsp;·&nbsp;' + total + ' names' +
-      '</div>';
-    var table = $('directoryTable').cloneNode(true);
-    table.removeAttribute('id');
-    table.style.minWidth = '';
-    var html = '';
-    directoryGroups.forEach(function (g) {
-      var bar = { CC: '#c92a2a', GEL: '#2f9e44', CREW: '#1c7ed6' }[g.role] || '#8a949e';
-      html += '<tr class="directory-group"><th scope="rowgroup" colspan="3" style="background:' + bar + ';--directory-group-border:' + bar + ';box-shadow:none;color:#fff"><div class="directory-group-line"><span>' +
-        esc(g.role) + '</span><span class="directory-group-count" style="color:#fff">' + g.rows.length + (g.rows.length === 1 ? ' person' : ' people') + '</span></div></th></tr>';
-      g.rows.forEach(function (r) {
-        var has = hasTA(keyOf(r, g));
-        html += '<tr class="directory-person"><td><span class="ta-dot' + (has ? ' has' : '') + '"></span>' + esc(r[0]) + '</td><td>' +
-          (r[1] ? esc(r[1]) : '—') + '</td><td>' + esc(r[2]) + '</td></tr>';
-      });
-    });
-    Array.prototype.slice.call(table.querySelectorAll('tbody, tfoot')).forEach(function (el) { el.remove(); });
-    var tbody = document.createElement('tbody');
-    tbody.innerHTML = html;
-    table.appendChild(tbody);
-    var colW = Array.prototype.slice.call(table.querySelectorAll('colgroup col')).reduce(function (n, c) { return n + (parseFloat(c.style.width) || 0); }, 0);
-    // size the copy to its content (the live table is fluid and would stretch the capture)
-    table.style.width = colW ? colW + 'px' : 'max-content';
-    wrap.style.width = colW ? (colW + 44) + 'px' : 'max-content';
-    table.style.maxWidth = 'none';
-    wrap.appendChild(head);
-    wrap.appendChild(table);
-    return wrap;
-  }
-  async function previewDirectoryImage() {
-    var overlay = $('previewOverlay'), loading = $('previewLoading'), img = $('previewImg'), info = $('previewInfo');
-    overlay.classList.add('open');
-    loading.innerHTML = '<div class="spinner"></div><span>Generating image...</span>';
-    loading.style.display = 'flex';
-    img.style.display = 'none';
-    img.removeAttribute('src');
-    info.textContent = '';
-    capturedDataURL = null;
-    var wrap = null;
-    try {
-      var h2c = await loadHtml2canvas();
-      wrap = buildDirectoryExport();
-      document.body.appendChild(wrap);
-      await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
-      var canvas = await h2c(wrap, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
-      capturedDataURL = canvas.toDataURL('image/jpeg', 0.95);
-      img.src = capturedDataURL;
-      img.style.display = 'block';
-      loading.style.display = 'none';
-      var sizeKB = Math.round(capturedDataURL.length * 3 / 4 / 1024);
-      info.textContent = canvas.width + ' × ' + canvas.height + ' px  ·  JPG  ·  ~' + sizeKB + ' KB';
-    } catch (err) {
-      loading.innerHTML = '<span style="color:#e03131;font-weight:600;">Error generating image</span>';
-      console.error(err);
-    } finally {
-      if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
-    }
-  }
-  function closePreview() {
-    $('previewOverlay').classList.remove('open');
-    capturedDataURL = null;
-  }
-  function downloadImage() {
-    if (!capturedDataURL) return;
-    var a = document.createElement('a');
-    a.href = capturedDataURL;
-    var now = new Date();
-    var ts = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0') + '_' +
-      String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
-    a.download = captureFilePrefix + ts + '.jpg';
-    a.click();
-  }
   // One person's TA as a JPG, downloaded only to the person who saved it (no other crew see it).
   async function downloadPersonImage(key, entry) {
     var info = personInfo(key);
@@ -1383,14 +1191,6 @@
       if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
     }
   }
-  $('btnDirectoryImage').addEventListener('click', function () { setMenu(false); previewDirectoryImage(); });
-  $('btnPreviewClose').addEventListener('click', closePreview);
-  $('btnPreviewCancel').addEventListener('click', closePreview);
-  $('btnPreviewSave').addEventListener('click', downloadImage);
-  $('previewOverlay').addEventListener('click', function (e) { if (e.target === this) closePreview(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && $('previewOverlay').classList.contains('open')) closePreview();
-  });
 
   renderDirectory();
   Store.listen(applyRemote);
@@ -1399,5 +1199,5 @@
   window.addEventListener('load', function () { if (window.lucide) window.lucide.createIcons(); });
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5c3be480ba76dc3',t:'MTc5NDk3MTAxOQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5c3be480ba76dc3',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5c3ce4bfece6dc3',t:'MTc5NDk3MTY3NQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5c3ce4bfece6dc3',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
