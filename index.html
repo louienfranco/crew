@@ -603,6 +603,49 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){draw(document);}); else draw(document);
 })();
 </script>
+  <style id="tools-row">
+    /* headers never shrink below their content (a short window was squeezing the tools row into the table) */
+    .directory-head,.card > header{flex:none}
+    /* same header design on both cards: title and subtitle on top, the tools row (count, search, buttons) full width below */
+    .card > header .tools,
+    .directory-head .directory-tools{flex:0 0 auto;width:100%;margin-left:0;margin-top:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+    .card > header .tools .pill,
+    .directory-head .directory-count{flex:0 0 auto}
+    .card > header .tools input[type=search],
+    .directory-head .directory-search{flex:1 1 180px;min-width:120px;width:auto;max-width:260px}
+    .card > header .tools .menu-wrap,
+    .directory-head .dir-menu,
+    .directory-head .dir-actions{margin-left:auto}
+  </style>
+  <style id="card-proportions">
+    /* one set of card values for the Crew Directory and TA of Crew, so both cards are 1:1 in proportion */
+    /* no card shadow on either card (the TA card's shadow was clipped by its wrapper, so the two looked different) */
+    #directoryCard, #tableCard{box-shadow:none!important}
+    #schedulerCard .card{box-shadow:none!important}
+    #directoryCard .directory-head, #schedulerCard .card > header{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;padding:16px 20px;border-bottom:1px solid #e4e4e7;box-shadow:none}
+    #directoryCard .directory-head > div:first-child, #schedulerCard .card > header > div:first-child{flex:0 1 auto;min-width:0}
+    #directoryCard .directory-title, #schedulerCard .card > header h1{margin:0;font-size:15px!important;font-weight:600!important;line-height:20px;letter-spacing:0;color:#18181b!important}
+    #directoryCard .directory-subtitle, #schedulerCard .card > header .sub{margin:2px 0 0;font-size:13px;line-height:20px;color:#71717a}
+    #directoryCard .directory-tools, #schedulerCard .card > header .tools{flex:0 0 auto;width:100%;margin:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;min-width:0}
+    #directoryCount, #pill{flex:0 0 auto;height:26px;box-sizing:border-box;padding:2px 8px;font-size:12px;font-weight:500;line-height:18px;color:#3f3f46;background:#f4f4f5;border:1px solid #e4e4e7;border-radius:6px;box-shadow:none}
+    #directoryCard .directory-search, #schedulerCard .card > header input[type=search]{flex:1 1 180px;min-width:120px;max-width:260px;width:260px;height:36px;box-sizing:border-box;font-size:13px;color:#18181b;background-color:#fff;border:1px solid #e4e4e7;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+    #directoryCard .directory-search input{height:100%;border:0;outline:none;background:transparent;font:inherit;color:inherit;width:100%}
+    /* empty-state message: same position, size and colour as the Crew Directory's */
+    #schedulerCard #empty:not([hidden]){padding:5px 8px;font-size:12px!important;line-height:18px;color:#868e96!important;text-align:center;height:auto}
+    /* the TA card's table wrapper had its own 1px top border, which doubled the line under the header */
+    #schedulerCard .directory-scroll{border-top:0!important}
+    /* the line under the table heading: one 1px line, same colour, on both cards */
+    #directoryTable thead th, #tbl thead th{box-shadow:none;border-top:0;border-bottom:1px solid #e4e4e7}
+    #directoryCard .dir-menu-btn, #schedulerCard #btnMore{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;box-sizing:border-box;padding:0;border:1px solid #e4e4e7;border-radius:6px;background:#fff;color:#3f3f46;font-size:18px;font-weight:700;line-height:1;box-shadow:none}
+  </style>
+  <style id="search-match">
+    /* Crew Directory search: same box, icon, text position and colours as the TA of Crew search */
+    #directoryCard .directory-search{flex:1 1 180px;min-width:120px;max-width:260px;width:260px;height:auto;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;display:block}
+    #directoryCard .directory-search svg{display:none}
+    #directoryCard .directory-search input{display:block;width:100%;height:36px;box-sizing:border-box;padding:0 12px 0 34px;font-size:13px;color:#18181b;background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:11px 50%;border:1px solid #e4e4e7;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.05);outline:none}
+    #directoryCard .directory-search input{font-size:13px!important;line-height:19.5px!important}
+    #directoryCard .directory-search input::placeholder, #schedulerCard #q::placeholder{color:#9ca3af!important;opacity:1}
+  </style>
 </head>
 <body class="flex">
 <div class="content flex min-h-0 flex-1 flex-col p-5" style="width:100%;max-width:1100px;margin:0 auto;height:100vh;height:100dvh">
@@ -1244,5 +1287,5 @@
   window.addEventListener('load', function () { if (window.lucide) window.lucide.createIcons(); });
 })();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5cb9ad5998d04fe',t:'MTc5NTA1MzQ1Mw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5cb9ad5998d04fe',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
