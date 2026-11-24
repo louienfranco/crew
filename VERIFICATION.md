@@ -277,3 +277,15 @@ Verified at 1440/375/320px with mocked Firebase: seven day cards each `[3, 1, 1]
 - **Privacy and flow untouched:** `buildImage()`, `sharePayload()`, `downloadBlob()`, `submit()` and the Share General / Messenger handlers are unchanged — only the drawing code was replaced. The cached blob/file is still built from the same canvas and never persisted.
 
 Verified with mocked Firebase (`.qa_a4.py`, 9 assertions, 0 failures, 0 console errors) for a one-line reason and a three-paragraph reason: both downloads are 2480×3508 (ratio 0.70696 = 1/1.414), filenames stay `request-off-<nick>-<date>.png`, the post-submit action panel (Share General + Messenger) appears, database writes are date-only booleans and the reason appears in neither the database writes nor `localStorage`/`sessionStorage`, and no signature/approval text is painted. Rendered samples: `.qa-a4-short.png`, `.qa-a4-long.png` (scratch, removed from the archive).
+
+### Revision: Request Off card is now a plain A4 print-ready letter
+
+The bond-paper document (tinted desk background, double keyline frame, letterhead, rules, metadata table, footer) is replaced by a plain letter that prints straight onto A4 bond paper.
+
+- **Canvas:** unchanged A4 geometry — `1240 × 1754` CSS px at `scale: 2` → a **2480 × 3508** PNG (1:1.414). The background is a single `fillRect` of `#FFFFFF`; no other fill, stroke, rect or non-white colour exists in the image code.
+- **Margins:** standard 1 inch (`MARGIN = 96` px at this scale) on all four sides, so the text block is 1048 px wide.
+- **Structure:** centred `REQUEST OFF` (Georgia/serif, 34px, `#111111`) with a small centred "Request for Day Off" subline → left-aligned letter block (`Date filed:`, `From:` with first/last/nickname, `Requested date off:` in long form) → salutation "Dear Manager / Scheduling Team," → the user's message as the body (19px/32px serif, paragraphs and manual line breaks preserved, greedy wrap, never truncated; the type steps down if a very long reason would overrun) → closing "Respectfully," followed by the printed name.
+- **No signature block:** there is no signature line, underline blank, approval box or signature wording anywhere in the renderer.
+- **Unchanged:** `buildImage()`, `sharePayload()`, `downloadBlob()`, `submit()`, the date-only database write, the auto-download and the Share General / Messenger actions. The `wrap()` truncating helper was removed because nothing truncates any more.
+
+Verified with mocked Firebase (`.qa_letter.py`, 10 assertions, 0 failures, 0 console errors) for a one-line reason and a three-paragraph reason: both downloads are 2480×3508 with ratio 0.70696, filenames stay `request-off-<nick>-<date>.png`, the post-submit Share General + Messenger panel appears, database writes remain date-only booleans, the reason appears in neither the database writes nor `localStorage`/`sessionStorage`, no signature/approval text is painted, and a source scan confirms the image path draws no strokes or non-white fills. Pixel audit: all four corners and the entire 1-inch margin band are pure white `(255,255,255)` in both renders.

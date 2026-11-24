@@ -206,45 +206,19 @@
   }
 
   /* ===== Image: Canvas, in memory only ===== */
-  function wrap(ctx, text, maxWidth, maxLines) {
-    var words = String(text).split(/\s+/), lines = [], line = '';
-    for (var i = 0; i < words.length; i++) {
-      var test = line ? line + ' ' + words[i] : words[i];
-      if (ctx.measureText(test).width > maxWidth && line) {
-        lines.push(line);
-        line = words[i];
-        if (lines.length === maxLines) break;
-      } else line = test;
-    }
-    if (lines.length < maxLines && line) lines.push(line);
-    if (lines.join(' ').length < String(text).trim().length) {
-      var last = lines.length - 1, s = lines[last];
-      while (s.length && ctx.measureText(s + '…').width > maxWidth) s = s.slice(0, -1);
-      lines[last] = s + '…';
-    }
-    return lines;
-  }
-  /* ---- A4 document card -------------------------------------------------
-     1240 x 1754 CSS px (exactly 1:1.414, i.e. ISO A4 portrait) rendered at
-     2x, so the exported PNG is a crisp 2480 x 3508 sheet. The layout is a
-     formal bond-paper document: a hairline sheet border, a centred letterhead,
-     a ruled title, an aligned metadata table, then the reason/detail body.
-     There are deliberately no signature, approval or sign-off blocks.       */
+  /* ---- Plain A4 letter ---------------------------------------------------
+     1240 x 1754 CSS px (exactly 1:1.414, ISO A4 portrait) drawn at 2x, so the
+     exported PNG is a crisp 2480 x 3508 print-ready sheet. Everything is
+     pure white (#FFFFFF) with black text only: no borders, tint bands, boxes,
+     rules, badges or graphics. Standard 1-inch print margins (96px at this
+     scale) hold a classic business letter: centred title, filing date, a
+     small From / Requested-date block, a salutation, the user's own message as
+     the body, and a closing that prints the name only — no signature line.   */
   var A4 = { w: 1240, h: 1754, scale: 2 };
-  var SHEET = 40;           // bond-paper margin from the image edge
-  var MARGIN = 104;         // document content margin inside the sheet
-  var SERIF = '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif';
-  var SANS = '"Helvetica Neue", Helvetica, Arial, "Segoe UI", Roboto, sans-serif';
+  var MARGIN = 96;                     // 1 inch print margin
+  var SERIF = 'Georgia, "Times New Roman", "Liberation Serif", serif';
 
-  function mono(ctx, text, x, y, letter, align) {
-    // Canvas has no letter-spacing, so wide-tracked document labels are drawn glyph by glyph.
-    var spaced = String(text).split('').join(String.fromCharCode(8202).repeat(Math.max(1, Math.round(letter))));
-    ctx.textAlign = align || 'left';
-    ctx.fillText(spaced, x, y);
-    ctx.textAlign = 'left';
-  }
-
-  // Greedy word wrap: never truncates, keeps every word the user typed.
+  // Greedy word wrap: keeps every word, honours the user's own line breaks.
   function wrapAll(ctx, text, maxWidth) {
     var paras = String(text == null ? '' : text).replace(/\r\n?/g, '\n').split('\n');
     var out = [];
@@ -262,11 +236,6 @@
     return out;
   }
 
-  function ruleFor(ctx, x, y, w, colour, weight) {
-    ctx.strokeStyle = colour; ctx.lineWidth = weight || 1;
-    ctx.beginPath(); ctx.moveTo(x, y + 0.5); ctx.lineTo(x + w, y + 0.5); ctx.stroke();
-  }
-
   function canvasFor(r) {
     var W = A4.w, H = A4.h, scale = A4.scale;
     var canvas = document.createElement('canvas');
@@ -274,105 +243,76 @@
     canvas.height = H * scale;
     var ctx = canvas.getContext('2d');
     ctx.scale(scale, scale);
+    ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
 
-    // --- bond paper: plain white sheet, a light desk edge and a hairline frame
-    ctx.fillStyle = '#f4f4f2'; ctx.fillRect(0, 0, W, H);
-    ctx.fillStyle = '#ffffff'; ctx.fillRect(SHEET, SHEET, W - SHEET * 2, H - SHEET * 2);
-    ctx.strokeStyle = '#c8c8c4'; ctx.lineWidth = 1;
-    ctx.strokeRect(SHEET + 0.5, SHEET + 0.5, W - SHEET * 2 - 1, H - SHEET * 2 - 1);
-    ctx.strokeStyle = '#e2e2de';
-    ctx.strokeRect(SHEET + 14.5, SHEET + 14.5, W - (SHEET + 14) * 2 - 1, H - (SHEET + 14) * 2 - 1);
+    var left = MARGIN, inner = W - MARGIN * 2;
+    var INK = '#111111', MUTED = '#333333';
 
-    var left = MARGIN, right = W - MARGIN, inner = right - left;
-    var y = SHEET + 86;
-
-    // --- letterhead
-    ctx.fillStyle = '#18181b';
-    ctx.font = '600 15px ' + SANS;
-    mono(ctx, 'CREW DIRECTORY', W / 2, y, 4.2, 'center');
-    y += 30;
+    // --- centred document title
+    var y = MARGIN + 40;
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#3f3f46'; ctx.font = '400 13px ' + SANS;
-    ctx.fillText('Personnel Request · ' + (r.role ? String(r.role).toUpperCase() + ' Department' : 'Crew'), W / 2, y);
+    ctx.fillStyle = INK;
+    ctx.font = '600 34px ' + SERIF;
+    ctx.fillText('REQUEST OFF', W / 2, y);
+    y += 28;
+    ctx.fillStyle = MUTED;
+    ctx.font = '400 16px ' + SERIF;
+    ctx.fillText('Request for Day Off', W / 2, y);   // sits under the title, same centre line
     ctx.textAlign = 'left';
-    y += 44;
+    y += 60;
 
-    // --- document title
-    ctx.strokeStyle = '#18181b'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(left, y + 0.5); ctx.lineTo(right, y + 0.5); ctx.stroke();
-    y += 54;
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#111113'; ctx.font = '600 40px ' + SERIF;
-    ctx.fillText('REQUEST OFF FORM', W / 2, y);
-    y += 26;
-    ctx.fillStyle = '#52525b'; ctx.font = '400 14px ' + SANS;
-    mono(ctx, 'LEAVE / REQUEST OFF NOTICE', W / 2, y, 2.4, 'center');
-    ctx.textAlign = 'left';
-    y += 24;
-    ruleFor(ctx, left, y, inner, '#18181b', 2);
-    y += 6;
-    ruleFor(ctx, left, y, inner, '#c8c8c4', 1);
-
-    // --- metadata block: aligned label column + value column
+    // --- letter header block: date, then From / Requested date off
     var name = (r.firstName || r.lastName)
-      ? (r.firstName + ' ' + r.lastName).trim() + (r.nickname ? '  (' + r.nickname + ')' : '')
+      ? (r.firstName + ' ' + r.lastName).trim() + (r.nickname ? ' (' + r.nickname + ')' : '')
       : r.nickname;
-    var fields = [
-      ['DOCUMENT NO.', 'RO-' + String(r.date).replace(/-/g, '') + '-' + String(r.nickname || '').replace(/[^a-z0-9]/gi, '').slice(0, 6).toUpperCase()],
-      ['DATE FILED', prettyDate(todayKey())],
-      ['CREW MEMBER', name],
-      ['ROLE / GROUP', r.role ? String(r.role) + ' Department' : 'Crew'],
-      ['REQUESTED DATE OFF', prettyDate(r.date)]
-    ];
-    var labelW = 208;
-    y += 40;
-    fields.forEach(function (f, i) {
-      ctx.fillStyle = '#71717a'; ctx.font = '600 12px ' + SANS;
-      mono(ctx, f[0], left, y, 1.6);
-      ctx.fillStyle = i === 4 ? '#111113' : '#27272a';
-      ctx.font = (i === 4 ? '600 22px ' : '500 20px ') + SERIF;
-      ctx.fillText(f[1], left + labelW, y);
-      y += 22;
-      ruleFor(ctx, left, y, inner, i === 4 ? '#c8c8c4' : '#eaeae6', 1);
-      y += 34;
-    });
+    var row = function (label, value, big) {
+      ctx.fillStyle = MUTED;
+      ctx.font = '400 17px ' + SERIF;
+      ctx.fillText(label, left, y);
+      ctx.fillStyle = INK;
+      ctx.font = (big ? '600 20px ' : '400 18px ') + SERIF;
+      ctx.fillText(value, left + 190, y);
+      y += 32;
+    };
+    row('Date filed:', prettyDate(todayKey()));
+    y += 14;
+    row('From:', name, true);
+    row('Requested date off:', prettyDate(r.date), true);
+    y += 54;
 
-    // --- reason / details: the exact user text, wrapped, never altered
-    y += 18;
-    ctx.fillStyle = '#71717a'; ctx.font = '600 12px ' + SANS;
-    mono(ctx, 'REASON / DETAILS', left, y, 1.8);
-    y += 20;
-    ruleFor(ctx, left, y, inner, '#18181b', 1);
-    y += 36;
+    // --- salutation
+    ctx.fillStyle = INK;
+    ctx.font = '400 19px ' + SERIF;
+    ctx.fillText('Dear Manager / Scheduling Team,', left, y);
+    y += 42;
 
-    var bodyFont = '400 20px ' + SERIF, lineH = 34;
-    ctx.font = bodyFont;
+    // --- body: the exact text the user typed, wrapped, never truncated
+    var bodyFont = '400 19px ' + SERIF, lineH = 32;
     var lines = wrapAll(ctx, r.reason, inner);
-    var bottomLimit = H - SHEET - 150;
-    var fits = y + Math.max(1, lines.length - 1) * lineH <= bottomLimit;
-    while (!fits && lineH > 21) {
+    var footerTop = H - MARGIN - 96;
+    var fits = y + Math.max(1, lines.length) * lineH + 40 <= footerTop;
+    while (!fits && lineH > 20) {
       lineH -= 2;
-      ctx.font = bodyFont = '400 ' + Math.max(15, Math.round(20 - (34 - lineH) / 6)) + 'px ' + SERIF;
-      fits = y + Math.max(1, lines.length - 1) * lineH <= bottomLimit;
+      bodyFont = '400 ' + Math.max(14, Math.round(19 - (32 - lineH) / 5)) + 'px ' + SERIF;
+      fits = y + Math.max(1, lines.length) * lineH + 40 <= footerTop;
     }
-    ctx.fillStyle = '#27272a';
+    ctx.fillStyle = INK;
+    ctx.font = bodyFont;
     lines.forEach(function (line, i) {
-      ctx.fillText(line, left, y + i * lineH);
+      if (line) ctx.fillText(line, left, y + i * lineH);
     });
-    if (!lines.length) {
-      ctx.fillStyle = '#a1a1aa'; ctx.font = 'italic 400 20px ' + SERIF;
-      ctx.fillText('—', left, y);
-    }
+    y += Math.max(1, lines.length) * lineH + 26;
 
-    // --- footer: document provenance only (no signature or approval lines)
-    var fy = H - SHEET - 78;
-    ruleFor(ctx, left, fy, inner, '#dcdcd8', 1);
-    ctx.fillStyle = '#8a8a93'; ctx.font = '400 12px ' + SANS;
-    mono(ctx, 'CREW DIRECTORY · REQUEST OFF', left, fy + 30, 1.4);
-    ctx.textAlign = 'right';
-    mono(ctx, 'FILED ' + prettyDate(todayKey()).toUpperCase(), right, fy + 30, 1.4, 'right');
-    ctx.textAlign = 'left';
+    // --- closing: printed name only, no signature line or approval box
+    ctx.font = '400 19px ' + SERIF;
+    ctx.fillText('Respectfully,', left, y);
+    y += 40;
+    ctx.font = '600 19px ' + SERIF;
+    ctx.fillText(name, left, y);
+
     return canvas;
   }
 
