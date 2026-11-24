@@ -265,3 +265,15 @@ Fixture contained other crew members' requests for 2026-11-23, 2026-12-20, 2026-
 `.av-day .av-opts` is now a three-row grid (`repeat(3, minmax(0,1fr))`, 6px gap): "Open / Mid / Close" fill three equal columns, "Specify time" and "Rest / Not Available" are `grid-column:1/-1` so each takes a full row. All five buttons keep one height/radius/padding, the legend keeps its 15px breathing room, and "Specify time" still renders the custom `from`/`to` dropdowns directly beneath the buttons. The "Can duty in" card keeps its two-column `av-grid-2` variant.
 
 Verified at 1440/375/320px with mocked Firebase: seven day cards each `[3, 1, 1]` columns, one button height, full-width rows 2–3, no overflow, all 7 × 5 shift states toggle, custom dropdowns 32px/equal width/24 options, picking `10AM` yields `Monday: SPECIFY 10AM-5PM`, Rest exclusivity intact, zero console errors.
+
+### Revision: Request Off card redesigned as an A4 bond-paper document
+
+`request-off.js` `canvasFor()` no longer draws the old 1000×620 landscape strip. The card is now a document sheet:
+
+- **Canvas:** `A4 = { w: 1240, h: 1754, scale: 2 }` → a **2480×3508** PNG, exactly the ISO A4 portrait ratio (1:1.414). A light desk colour fills the image and a white sheet (`40px` edge) carries a 1px hairline frame plus a second inner keyline.
+- **Hierarchy:** centred letterhead (`CREW DIRECTORY`, tracked) → rule → serif "REQUEST OFF FORM" title with a wide-tracked "LEAVE / REQUEST OFF NOTICE" subline → double rule → metadata rows (document no., date filed, crew member with nickname, role/group, requested date off in long form) each separated by a light rule → "REASON / DETAILS" heading and rule → serif body.
+- **Body text:** `wrapAll()` preserves embedded newlines and wrapping paragraphs, never truncates, and auto-reduces line height/font (down to 15px) so a very long reason still fits above the footer. The reason is drawn verbatim — nothing is hardcoded or rewritten.
+- **No signature block:** the only footer content is provenance ("CREW DIRECTORY · REQUEST OFF" and "FILED …"); no Signature/Approved-by/sign-off wording exists anywhere in the renderer.
+- **Privacy and flow untouched:** `buildImage()`, `sharePayload()`, `downloadBlob()`, `submit()` and the Share General / Messenger handlers are unchanged — only the drawing code was replaced. The cached blob/file is still built from the same canvas and never persisted.
+
+Verified with mocked Firebase (`.qa_a4.py`, 9 assertions, 0 failures, 0 console errors) for a one-line reason and a three-paragraph reason: both downloads are 2480×3508 (ratio 0.70696 = 1/1.414), filenames stay `request-off-<nick>-<date>.png`, the post-submit action panel (Share General + Messenger) appears, database writes are date-only booleans and the reason appears in neither the database writes nor `localStorage`/`sessionStorage`, and no signature/approval text is painted. Rendered samples: `.qa-a4-short.png`, `.qa-a4-long.png` (scratch, removed from the archive).
