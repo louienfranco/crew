@@ -206,16 +206,18 @@
   }
 
   /* ===== Image: Canvas, in memory only ===== */
-  /* ---- Plain A4 letter ---------------------------------------------------
+  /* ---- Plain A4 business letter ------------------------------------------
      1240 x 1754 CSS px (exactly 1:1.414, ISO A4 portrait) drawn at 2x, so the
-     exported PNG is a crisp 2480 x 3508 print-ready sheet. Everything is
-     pure white (#FFFFFF) with black text only: no borders, tint bands, boxes,
-     rules, badges or graphics. Standard 1-inch print margins (96px at this
-     scale) hold a classic business letter: centred title, filing date, a
-     small From / Requested-date block, a salutation, the user's own message as
-     the body, and a closing that prints the name only — no signature line.   */
+     exported PNG is a crisp 2480 x 3508 sheet that prints straight onto A4
+     bond paper. The page is a single #FFFFFF fill with black serif text only:
+     no frame, no rules, no boxes, no tints, no header or footer text.
+     1-inch print margins (96px at this scale) hold a classic letter: an
+     understated centred title, the date line, a plain To/From/Requested-date
+     block, the salutation, the user's own message as the body, and a closing
+     that prints the name only — no signature line, blank or approval box.   */
   var A4 = { w: 1240, h: 1754, scale: 2 };
-  var MARGIN = 96;                     // 1 inch print margin
+  var MARGIN = 96;                     // 1 inch print margin on all sides
+  var INK = '#111111';
   var SERIF = 'Georgia, "Times New Roman", "Liberation Serif", serif';
 
   // Greedy word wrap: keeps every word, honours the user's own line breaks.
@@ -249,68 +251,67 @@
     ctx.fillRect(0, 0, W, H);
 
     var left = MARGIN, inner = W - MARGIN * 2;
-    var INK = '#111111', MUTED = '#333333';
-
-    // --- centred document title
-    var y = MARGIN + 40;
-    ctx.textAlign = 'center';
     ctx.fillStyle = INK;
-    ctx.font = '600 34px ' + SERIF;
-    ctx.fillText('REQUEST OFF', W / 2, y);
-    y += 28;
-    ctx.fillStyle = MUTED;
-    ctx.font = '400 16px ' + SERIF;
-    ctx.fillText('Request for Day Off', W / 2, y);   // sits under the title, same centre line
-    ctx.textAlign = 'left';
-    y += 60;
 
-    // --- letter header block: date, then From / Requested date off
+    // --- centred title, nothing beneath it
+    var y = MARGIN + 26;
+    ctx.textAlign = 'center';
+    ctx.font = '600 32px ' + SERIF;
+    ctx.fillText('REQUEST FOR DAY OFF', W / 2, y);
+    ctx.textAlign = 'left';
+    y += 78;
+
+    // --- date line
+    ctx.font = '400 18px ' + SERIF;
+    ctx.fillText(prettyDate(todayKey()), left, y);
+    y += 46;
+
+    // --- recipient / subject lines
     var name = (r.firstName || r.lastName)
       ? (r.firstName + ' ' + r.lastName).trim() + (r.nickname ? ' (' + r.nickname + ')' : '')
       : r.nickname;
-    var row = function (label, value, big) {
-      ctx.fillStyle = MUTED;
-      ctx.font = '400 17px ' + SERIF;
-      ctx.fillText(label, left, y);
+    [['To: ', 'Management / Scheduling Team'],
+     ['From: ', name],
+     ['Requested Date Off: ', prettyDate(r.date)]].forEach(function (line) {
       ctx.fillStyle = INK;
-      ctx.font = (big ? '600 20px ' : '400 18px ') + SERIF;
-      ctx.fillText(value, left + 190, y);
-      y += 32;
-    };
-    row('Date filed:', prettyDate(todayKey()));
-    y += 14;
-    row('From:', name, true);
-    row('Requested date off:', prettyDate(r.date), true);
-    y += 54;
+      ctx.font = '400 18px ' + SERIF;
+      ctx.fillText(line[0], left, y);
+      var w = ctx.measureText(line[0]).width;
+      ctx.font = '600 18px ' + SERIF;
+      ctx.fillText(line[1], left + w, y);
+      y += 28;
+    });
+    y += 44;
 
-    // --- salutation
+    // --- salutation, then a full blank line before the body
     ctx.fillStyle = INK;
-    ctx.font = '400 19px ' + SERIF;
-    ctx.fillText('Dear Manager / Scheduling Team,', left, y);
-    y += 42;
+    ctx.font = '400 18px ' + SERIF;
+    ctx.fillText('Dear Manager,', left, y);
+    y += 62;
 
     // --- body: the exact text the user typed, wrapped, never truncated
-    var bodyFont = '400 19px ' + SERIF, lineH = 32;
+    var bodyFont = '400 18px ' + SERIF, lineH = Math.round(18 * 1.6);   // 1.6 line spacing
     var lines = wrapAll(ctx, r.reason, inner);
-    var footerTop = H - MARGIN - 96;
-    var fits = y + Math.max(1, lines.length) * lineH + 40 <= footerTop;
+    var bodyBottomLimit = H - MARGIN - 120;   // keep the closing on the page
+    var fits = y + Math.max(1, lines.length) * lineH + 30 <= bodyBottomLimit;
     while (!fits && lineH > 20) {
       lineH -= 2;
-      bodyFont = '400 ' + Math.max(14, Math.round(19 - (32 - lineH) / 5)) + 'px ' + SERIF;
-      fits = y + Math.max(1, lines.length) * lineH + 40 <= footerTop;
+      bodyFont = '400 ' + Math.max(13, Math.round(18 - (29 - lineH) / 4)) + 'px ' + SERIF;
+      fits = y + Math.max(1, lines.length) * lineH + 30 <= bodyBottomLimit;
     }
     ctx.fillStyle = INK;
     ctx.font = bodyFont;
     lines.forEach(function (line, i) {
       if (line) ctx.fillText(line, left, y + i * lineH);
     });
-    y += Math.max(1, lines.length) * lineH + 26;
+    y += Math.max(1, lines.length) * lineH + 30;
 
-    // --- closing: printed name only, no signature line or approval box
-    ctx.font = '400 19px ' + SERIF;
+    // --- plain closing: word, blank line, printed name. No signature line.
+    ctx.fillStyle = INK;
+    ctx.font = '400 18px ' + SERIF;
     ctx.fillText('Respectfully,', left, y);
-    y += 40;
-    ctx.font = '600 19px ' + SERIF;
+    y += 56;
+    ctx.font = '600 18px ' + SERIF;
     ctx.fillText(name, left, y);
 
     return canvas;
