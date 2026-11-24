@@ -1,0 +1,187 @@
+/* Standalone Crew Directory: shared compact UI, no compiled CSS/build step. */
+:root{--ui-bg:#fff;--ui-page:#fafafa;--ui-ink:#18181b;--ui-muted:#52525b;--ui-border:#e4e4e7;--ui-soft:#f4f4f5;--ui-focus:#71717a;--ui-control-h:32px;--ui-gap:8px;--ui-font-size:13px;--ui-title-size:15px}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--ui-page);color:var(--ui-ink);font:13px/20px ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{height:100vh;height:100dvh}
+[hidden]{display:none!important}
+button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}
+/* A constant 1px internal stroke prevents default-outline/ring stacking and
+   avoids a thick-outline flash on controls using transition-all. */
+:where(button,a[href],input,textarea,select,summary,[tabindex],[contenteditable]){outline:1px solid transparent;outline-offset:-1px}
+:where(button,a[href],input,textarea,select,summary,[tabindex],[contenteditable]):focus-visible,
+:where(input,textarea,select,[contenteditable]:not([contenteditable=false])):focus{outline:1px solid var(--ui-focus)!important;outline-offset:-1px!important}
+:where(input,select,textarea){min-width:0;max-width:100%}
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]){overflow:clip}
+:where(input,select,textarea)[aria-invalid=true]{border-color:#b91c1c;--ui-focus:#b91c1c}
+.btn-primary{--ui-focus:#fff}
+/* The standalone app has no sidebar/topbar. Its table owns page scrolling. */
+.content{display:flex;flex-direction:column;min-width:0;min-height:0;width:100%;max-width:1100px;height:100%;margin:0 auto;padding:20px}
+.card{display:flex;flex:1;flex-direction:column;min-width:0;min-height:0;overflow:hidden;border:1px solid var(--ui-border);border-radius:8px;background:var(--ui-bg);box-shadow:0 1px 3px rgb(0 0 0 / .1),0 1px 2px -1px rgb(0 0 0 / .1)}
+.directory-head{position:relative;z-index:3;flex:none;min-width:0;padding:16px 20px;border-bottom:1px solid var(--ui-border);background:var(--ui-bg)}
+.directory-title{margin:0;font-size:15px;font-weight:600;line-height:20px}
+.directory-subtitle{margin:4px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;line-height:20px;color:var(--ui-muted)}
+.directory-tools{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;min-width:0;margin-top:12px}
+.directory-count{display:inline-flex;flex:none;align-items:center;min-width:0;height:26px;padding:2px 8px;border:1px solid var(--ui-border);border-radius:6px;background:var(--ui-soft);color:#3f3f46;font-size:12px;font-weight:500;line-height:20px;white-space:nowrap}
+.directory-search{position:relative;display:block;flex:1 1 240px;width:240px;min-width:0;max-width:240px}
+.directory-search>svg{position:absolute;top:8px;left:10px;width:16px;height:16px;pointer-events:none;color:var(--ui-muted)}
+.directory-search input{display:block;width:100%;min-width:0;max-width:100%;height:32px;border:1px solid var(--ui-border);border-radius:6px;padding:0 12px 0 32px;background:#fff;color:var(--ui-ink);font:inherit;font-size:13px;line-height:20px}
+.directory-search input::placeholder{color:var(--ui-muted);opacity:1}
+.directory-status{display:block;margin-top:8px;overflow-wrap:anywhere;color:var(--ui-muted);font-size:12px;line-height:18px}
+.directory-scroll{flex:1;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;background:#fff;scroll-padding:8px}
+.directory-table{width:100%;min-width:470px;table-layout:fixed;border-collapse:collapse}
+.directory-table th,.directory-table td{width:calc(100% / 3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.directory-table thead th{position:sticky;top:0;z-index:2;padding:6px 10px;border-bottom:1px solid var(--ui-border);background:var(--ui-page);color:var(--ui-muted);font-size:12px;line-height:20px;font-weight:500;text-align:left}
+.directory-group th{padding:6px 10px;border-top:1px solid var(--ui-border);border-bottom:1px solid var(--ui-border);text-align:left;font-size:12px;font-weight:600;line-height:20px}
+.directory-group-line{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.directory-group-count{flex:none;font-size:11px;font-weight:500}
+.directory-cc .directory-group th{background:#fef2f2;color:#b91c1c;box-shadow:inset 3px 0 #dc2626}
+.directory-gel .directory-group th{background:#f0fdf4;color:#15803d;box-shadow:inset 3px 0 #16a34a}
+.directory-crew .directory-group th{background:#eff6ff;color:#1d4ed8;box-shadow:inset 3px 0 #2563eb}
+.directory-person td{height:30px;padding:6px 10px;border-right:1px solid var(--ui-border);border-bottom:1px solid var(--ui-border);vertical-align:middle;color:#3f3f46;font-size:13px;line-height:20px;background:#fff}
+.directory-person td:last-child{border-right:0}.directory-person td:first-child{font-weight:500;color:var(--ui-ink)}
+.directory-person.is-clickable{cursor:pointer}.directory-person.is-clickable:hover td{background:var(--ui-page)}
+.directory-empty{padding:16px;text-align:center;color:var(--ui-muted);font-size:13px;white-space:normal!important}
+.directory-muted{color:var(--ui-muted)}
+.ta-dot{display:inline-block;width:9px;height:9px;margin-right:7px;border:1.5px solid #71717a;border-radius:50%;background:transparent;vertical-align:middle}.ta-dot.has{background:#15803d;border-color:#15803d}
+/* Active Request Off: same dot geometry as the green TA dot, solid orange. */
+.ta-dot.has-ro{background:#ea580c;border-color:#ea580c}
+/* Only the body scrolls: no focus outlines extend into headers or footers. */
+.overlay{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;min-width:0;padding:16px;background:rgb(0 0 0 / .5)}
+.overlay.open{display:flex}
+.ui-dialog-panel{display:flex;flex-direction:column;min-width:0;min-height:0;width:100%;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow:hidden;border:1px solid var(--ui-border);border-radius:8px;background:#fff;box-shadow:0 10px 30px rgb(0 0 0 / .16);animation:modal-in .18s ease-out}
+.person-dialog{max-width:460px}.availability-dialog{max-width:520px}
+.ui-dialog-head{display:flex;flex:none;align-items:center;justify-content:space-between;gap:8px;min-width:0;padding:16px 20px;border-bottom:1px solid var(--ui-border)}
+.ui-dialog-head>div{min-width:0}.ui-dialog-title{margin:0;font-size:15px;font-weight:600;line-height:20px;overflow-wrap:anywhere}
+#availName,#personPreviewSub{margin-top:4px;color:var(--ui-muted);font-size:13px;line-height:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ui-dialog-body{flex:1;min-width:0;min-height:0;padding:16px 20px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+.ui-dialog-foot{display:flex;flex:none;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;min-width:0;padding:12px 20px;border-top:1px solid var(--ui-border);background:var(--ui-page)}
+.ui-dialog-foot>div{display:flex;flex-wrap:wrap;gap:8px;min-width:0;max-width:100%}
+.btn{display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;gap:6px;height:32px;max-width:100%;padding:0 12px;border:1px solid transparent;border-radius:6px;font-size:13px;font-weight:500;line-height:20px;white-space:nowrap;transition:background-color .15s,border-color .15s,color .15s,transform .15s}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn-primary{background:#18181b;border-color:#18181b;color:#fafafa}.btn-primary:hover{background:#27272a}
+.btn-secondary{background:#fff;border-color:var(--ui-border);color:#18181b}.btn-secondary:hover{background:var(--ui-soft)}
+.btn-close{display:inline-flex;flex:none;align-items:center;justify-content:center;width:32px;height:32px;border:0;border-radius:4px;background:transparent;color:var(--ui-muted)}
+.btn-close:hover{background:var(--ui-soft);color:var(--ui-ink)}
+.btn-close svg{width:14px;height:14px}
+/* Checkbox labels are the visible controls; their hidden native inputs retain
+   keyboard/label activation and never create a 1px scroll container. */
+.av-instructions{margin:0 0 8px;font-size:12px;line-height:18px;color:var(--ui-muted)}
+.av-day{position:relative;min-width:0;margin:0 0 12px;padding:14px 12px 12px;border:1px solid var(--ui-border);border-radius:8px}
+/* Legend floats inside the card so it no longer sits on the rounded border. */
+.av-day legend{float:left;width:100%;margin:0 0 10px;padding:1px 0 0;font-size:12px;font-weight:600;line-height:16px;color:#18181b}
+.av-day .av-opts{clear:both}
+/* Five shift buttons, stacked in three rows: Open / Mid / Close across three equal
+   columns, then "Specify time" and "Rest / Not Available" each full width. All five
+   share one height, radius and padding (see .av-opt below). */
+.av-day .av-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;align-items:stretch;min-width:0}
+.av-day .av-opts>label.av-opt{width:auto;min-width:0;grid-column:auto}
+.av-day .av-opts>label.av-opt.av-wide{grid-column:1/-1;width:auto}
+.av-day .av-opts.av-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.av-day .av-opts.av-grid-2>label.av-opt.av-wide{grid-column:1/-1}
+.av-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;min-width:0}
+.av-grid.av-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.av-input{position:absolute;width:1px;height:1px;margin:0;padding:0;border:0;opacity:0;pointer-events:none;overflow:hidden}
+.av-input:focus-visible{outline:none!important}
+.av-opt{display:flex;align-items:center;justify-content:center;min-width:0;min-height:32px;padding:5px 8px;border:1px solid var(--ui-border);border-radius:6px;background:#fff;color:#3f3f46;font-size:13px;line-height:20px;font-weight:500;text-align:center;cursor:pointer;user-select:none;overflow-wrap:anywhere}
+.av-input:checked+.av-opt{background:#18181b;color:#fafafa;border-color:#18181b;--ui-focus:#fff}
+.av-input:focus-visible+.av-opt{outline:1px solid var(--ui-focus);outline-offset:-1px}
+.av-input:disabled+.av-opt{opacity:.5;cursor:not-allowed}
+.av-wide{grid-column:1/-1}
+.av-times{display:flex;flex-direction:column;gap:6px;margin-top:6px}.av-times:empty{display:none}
+.av-time-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;min-width:0;font-size:13px;line-height:20px}
+.av-time-lbl{display:grid;grid-template-columns:2.5em minmax(0,1fr);align-items:center;column-gap:6px;min-width:0;flex:1 1 0;white-space:nowrap;color:#3f3f46}
+.av-time-sel{display:block;flex:1;min-width:0;max-width:100%;height:32px;padding:0 6px;border:1px solid var(--ui-border);border-radius:6px;background:#fff;color:#18181b;font:inherit;font-size:13px;line-height:20px}
+.av-time-err{width:100%;font-size:12px;line-height:18px;color:#b91c1c}
+.field-label{font-size:12px;font-weight:500;line-height:18px}
+.av-output{padding:8px 10px;border:1px solid var(--ui-border);border-radius:6px;background:var(--ui-page);font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-line;color:#3f3f46;overflow-wrap:anywhere}
+#availHint{color:#b91c1c;overflow-wrap:anywhere}
+.app-toast{position:fixed;left:50%;bottom:20px;z-index:600;max-width:calc(100vw - 32px);padding:10px 14px;border-radius:6px;background:#18181b;color:#fff;font-size:13px;line-height:20px;box-shadow:0 4px 12px #0003;opacity:0;pointer-events:none;transform:translate(-50%,12px);transition:opacity .2s,transform .2s}.app-toast.show{opacity:1;transform:translate(-50%,0)}
+.sk-bar{display:block;height:12px;border-radius:4px;background:linear-gradient(90deg,#e4e4e7 25%,#fafafa 37%,#e4e4e7 63%);background-size:400% 100%;animation:sk-shine 1.4s ease infinite}
+.directory-skeleton td{pointer-events:none}.directory-skeleton .sk-bar{margin:0}
+svg.lucide{display:inline-block;width:1em;height:1em;vertical-align:-.125em;flex-shrink:0}
+:where(.directory-scroll,.ui-dialog-body){scrollbar-width:thin;scrollbar-color:#d4d4d8 #fff}
+@keyframes sk-shine{from{background-position:100% 50%}to{background-position:0 50%}}
+@keyframes modal-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:639.98px){.content{padding:12px}.directory-head{padding:16px}.ui-dialog-head,.ui-dialog-body{padding:16px}.ui-dialog-foot{padding:12px 16px}}
+@media(max-width:480px){.directory-count{display:block;max-width:84px;overflow:hidden;text-overflow:ellipsis;line-height:20px}}
+@media(max-height:360px){.ui-dialog-head,.ui-dialog-body,.ui-dialog-foot{padding-top:8px;padding-bottom:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(forced-colors:active){:root,.btn-primary,.av-input:checked+.av-opt{--ui-focus:Highlight}}
+@media print{html,body{height:auto;overflow:visible}.content{height:auto;max-width:none;padding:0}.directory-scroll{overflow:visible}.card{overflow:visible;box-shadow:none}.overlay,.directory-tools{display:none!important}.directory-table{min-width:0}}
+/* Request Off sits beside the TA maker on wide dialogs and stacks above it on narrow ones. */
+.av-off-note,.av-off-fallback{margin:0;font-size:12px;line-height:18px;color:var(--ui-muted);overflow-wrap:anywhere}
+.av-off-field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.av-off-input{display:block;width:100%;min-width:0;max-width:100%;height:32px;padding:0 8px;border:1px solid var(--ui-border);border-radius:6px;background:#fff;color:var(--ui-ink);font:inherit;font-size:13px;line-height:20px}
+.av-off-input::placeholder{color:var(--ui-muted);opacity:1}
+.av-off-reason{height:auto;min-height:64px;padding:6px 8px;resize:vertical}
+.av-off-input[aria-invalid=true]{border-color:#b91c1c;--ui-focus:#b91c1c}
+.av-off-error{margin:0;font-size:12px;font-weight:500;line-height:18px;color:#b91c1c;overflow-wrap:anywhere}
+.av-off-submit{width:100%;max-width:100%}
+.av-off-live{margin:0;font-size:12px;line-height:18px;color:#15803d;overflow-wrap:anywhere}.av-off-live:empty{display:none}
+.av-off-fallback a{color:inherit;font-weight:500;text-decoration:underline}
+@media(max-height:420px){.av-off-reason{min-height:48px}}
+
+/* View tabs share the card header rhythm; the Directory view is unchanged. */
+.app-bar{display:flex;flex:none;flex-wrap:nowrap;align-items:center;gap:12px;min-width:0;margin-bottom:12px}
+.app-brand{flex:none;font-size:15px;font-weight:600;line-height:20px;white-space:nowrap}
+.app-nav{display:flex;flex:1 1 auto;flex-wrap:nowrap;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.app-nav::-webkit-scrollbar{display:none}
+.app-nav-item{display:inline-flex;flex:none;align-items:center;height:32px;padding:0 12px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--ui-muted);font-size:13px;font-weight:500;line-height:20px;white-space:nowrap}
+.app-nav-item:hover{background:var(--ui-soft);color:var(--ui-ink)}
+.app-nav-item[aria-current=page]{border-color:var(--ui-border);background:#fff;color:var(--ui-ink);font-weight:600}
+.app-views{display:flex;flex:1;flex-direction:column;min-width:0;min-height:0}
+.app-view{display:flex;flex:1;flex-direction:column;min-width:0;min-height:0}
+/* Both views share one table geometry: same card, scroll region, width,
+   fixed layout and minimum width, so switching tabs never shifts an edge.
+   Both views show the same three name columns, so every column edge matches. */
+.app-view .directory-table{width:100%;min-width:470px;table-layout:fixed}
+.app-view .directory-table th,.app-view .directory-table td{width:calc(100% / 3)}
+.request-off-dialog{max-width:420px}
+.request-off-dialog #requestOffPerson{margin-top:4px;color:var(--ui-muted);font-size:13px;line-height:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.request-off-dialog .ui-dialog-body{display:flex;flex-direction:column;gap:10px}
+@media(max-width:480px){.app-bar{flex-wrap:wrap;gap:8px}.app-nav{flex-basis:100%}}
+/* Post-submit action view: share or Messenger, after the PNG download. */
+.av-off-done{display:flex;flex-direction:column;gap:8px;margin-top:2px;padding:10px;border:1px solid var(--ui-border);border-radius:8px;background:#fff}
+.av-off-done .field-label{margin:0;color:var(--ui-ink)}
+.av-off-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.av-off-actions .btn{flex:1 1 120px;min-width:0}
+#offShareNote{color:var(--ui-muted)}#offShareNote.is-error{color:#b91c1c}
+/* ===== Custom controls mirrored from the main app (src/) =====
+   The native date input / select stays in the DOM as the value source but is
+   visually replaced, exactly like src/. */
+.ui-native-control{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important}
+.ui-native-control[type=date]{display:none!important}
+.ui-field-wrap{position:relative;width:100%;min-width:0}
+.ui-select-button{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-width:0;height:32px;padding:0 8px;border:1px solid var(--ui-border);border-radius:6px;background:#fff;color:#3f3f46;font-size:13px;line-height:20px;text-align:left;transition:border-color .15s,background-color .15s,color .15s}
+.ui-select-button:hover{border-color:#d4d4d8}
+.ui-select-button[aria-expanded=true]{border-color:#a1a1aa}
+.ui-select-button:disabled{background:var(--ui-soft);color:#a1a1aa;cursor:not-allowed}
+.ui-select-button .ui-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ui-select-button svg{flex:none;color:var(--ui-muted)}
+.ui-select-button.is-empty .ui-label{color:var(--ui-muted)}
+.ui-select-button[aria-invalid=true]{border-color:#b91c1c;--ui-focus:#b91c1c}
+.av-time-lbl .ui-field-wrap{min-width:0;width:auto}
+.ui-pop{position:fixed;z-index:700;overflow:auto;border:1px solid var(--ui-border);border-radius:8px;background:#fff;box-shadow:0 10px 30px rgb(0 0 0 / .16);padding:4px}
+.ui-listbox{display:flex;flex-direction:column;gap:1px}
+.ui-opt{display:block;width:100%;min-width:0;padding:6px 8px;border:0;border-radius:4px;background:transparent;color:#3f3f46;font-size:13px;line-height:20px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ui-opt:hover,.ui-opt:focus-visible{background:var(--ui-soft);color:var(--ui-ink)}
+.ui-opt.is-selected{background:#18181b;color:#fafafa;font-weight:600}
+.ui-opt.is-selected:hover,.ui-opt.is-selected:focus-visible{background:#27272a;color:#fff}
+.ui-cal{padding:6px}
+.ui-cal-head{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:0 2px 4px}
+.ui-cal-title{font-size:13px;font-weight:600;line-height:20px;color:var(--ui-ink)}
+.ui-cal-nav{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:0;border-radius:4px;background:transparent;color:var(--ui-muted)}
+.ui-cal-nav:hover{background:var(--ui-soft);color:var(--ui-ink)}
+.ui-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 2px 2px}
+.ui-cal-week{display:flex;align-items:center;justify-content:center;height:24px;font-size:11px;font-weight:500;color:#52525b}
+.ui-cal-day{display:flex;align-items:center;justify-content:center;height:26px;border:0;border-radius:4px;background:transparent;color:#3f3f46;font-size:13px;line-height:20px}
+.ui-cal-day:hover{background:var(--ui-soft)}
+.ui-cal-day.is-selected{background:#18181b;color:#fff;font-weight:600}
+.ui-cal-day.is-selected:hover{background:#27272a}
+.ui-cal-day:disabled{color:#d4d4d8;cursor:not-allowed}
+.ui-cal-day:disabled:hover{background:transparent}
+.ui-calendar-today{text-decoration:underline;text-underline-offset:3px}
+.ui-cal-foot{margin-top:2px;padding-top:4px;border-top:1px solid var(--ui-soft)}
+.ui-cal-clear{width:100%;padding:4px 8px;border:0;border-radius:4px;background:transparent;color:#b91c1c;font-size:12px;line-height:18px;text-align:center}
+.ui-cal-clear:hover{background:#fef2f2}
+@media(forced-colors:active){:is(.ui-opt.is-selected,.ui-cal-day.is-selected){--ui-focus:Highlight}}

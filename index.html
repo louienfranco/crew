@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="light" name="color-scheme"/>
+
+
+<title>Crew Directory</title>
+<meta content="November crew directory: names, roles, TA availability and date-only requests off." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="November Crew Directory" property="og:title"/>
+<meta content="Names grouped by role, with TA availability." property="og:description"/>
+<meta content="summary" name="twitter:card"/>
+<!-- The page uses the built-in system font (no font files or links). The skeleton is released when the app is ready. -->
+<noscript>
+<style>#boot-skeleton{display:none}</style></noscript>
+<script src="./boot.js"></script>
+<!-- html2canvas is loaded on demand when the user clicks "Save as Image" (no render-blocking vendor script) -->
+<!-- Tailwind (browser build) generates the utility classes; no compiled CSS is stored in this file. -->
+<script src="https://cdn.tailwindcss.com"></script><script src="./tailwind.config.js"></script><link href="./styles.css" rel="stylesheet"/>
+
+
+
+<style id="ui-theme">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="group-dialog">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="boot-skeleton-css">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="src-sizes">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="static-table-sizes">/* Source hook retained; shared rules are in styles.css. */</style>
+<script defer="" id="icons-inline" src="./icons.js"></script>
+<style id="tools-row">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="card-proportions">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="search-match">/* Source hook retained; shared rules are in styles.css. */</style>
+<style id="dir-balance">/* Source hook retained; shared rules are in styles.css. */</style>
+</head>
+<body class="flex">
+<main class="content" id="mainContent">
+<h1 class="sr-only">Crew Directory</h1>
+<header class="app-bar">
+<div class="app-brand">Crew Directory</div>
+<nav aria-label="Crew views" class="app-nav">
+<button aria-current="page" class="app-nav-item" id="viewTabTA" type="button">Time of Availability</button>
+<button class="app-nav-item" id="viewTabOff" type="button">Request Off</button>
+</nav>
+</header>
+<div class="app-views">
+<div class="app-view" id="viewTA">
+<section aria-labelledby="directoryTitle" class="card flex min-h-0 flex-1 flex-col overflow-hidden rounded border border-line bg-white shadow-card" id="directoryCard">
+<header class="directory-head">
+<div>
+<h2 class="directory-title" id="directoryTitle">November Crew Directory</h2>
+<p class="directory-subtitle">Names grouped by role from the November roster</p>
+</div>
+<div class="directory-tools">
+<span aria-live="polite" class="directory-count" id="directoryCount">Loading names...</span>
+<label class="directory-search">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24" width="16"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+<span class="sr-only">Search the crew directory</span>
+<input autocomplete="off" id="directorySearch" placeholder="Search names or role..." spellcheck="false" type="search"/>
+</label>
+
+</div><span class="directory-status" hidden="" id="directoryStatus" role="status"></span>
+</header>
+<div aria-label="Scrollable crew directory" class="directory-scroll" role="region" tabindex="0">
+<table class="directory-table" id="directoryTable">
+<caption class="sr-only">November roster: nickname, first name and last name by role</caption>
+<thead><tr><th scope="col">Nickname</th><th scope="col">First Name</th><th scope="col">Last Name</th></tr></thead>
+<tbody class="directory-cc" id="directoryCC"></tbody>
+<tbody class="directory-gel" id="directoryGEL"></tbody>
+<tbody class="directory-crew" id="directoryCrew"></tbody>
+<tbody hidden="" id="directoryEmpty"><tr><td class="directory-empty" colspan="3">No names found. Try a different search.</td></tr></tbody>
+</table>
+</div>
+</section>
+</div>
+<div class="app-view" hidden="" id="viewOff">
+<section aria-labelledby="offTitle" class="card flex min-h-0 flex-1 flex-col overflow-hidden rounded border border-line bg-white shadow-card" id="offCard">
+<header class="directory-head">
+<div>
+<h2 class="directory-title" id="offTitle">Request Off</h2>
+<p class="directory-subtitle">Names grouped by role. Select a name to file a request off.</p>
+</div>
+<div class="directory-tools">
+<span aria-live="polite" class="directory-count" id="offCount">Loading names...</span>
+<label class="directory-search">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24" width="16"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+<span class="sr-only">Search the request off table</span>
+<input autocomplete="off" id="offSearch" placeholder="Search names or role..." spellcheck="false" type="search"/>
+</label>
+</div><span class="directory-status" hidden="" id="offStatusRegion" role="status"></span>
+</header>
+<div aria-label="Scrollable request off table" class="directory-scroll" role="region" tabindex="0">
+<table class="directory-table" id="offTable">
+<caption class="sr-only">November roster with saved requests off, by role: nickname, first name and last name</caption>
+<thead><tr><th scope="col">Nickname</th><th scope="col">First Name</th><th scope="col">Last Name</th></tr></thead>
+<tbody class="directory-cc" id="offBodyCC"></tbody>
+<tbody class="directory-gel" id="offBodyGEL"></tbody>
+<tbody class="directory-crew" id="offBodyCREW"></tbody>
+<tbody hidden="" id="offEmpty"><tr><td class="directory-empty" colspan="3">No names found. Try a different search.</td></tr></tbody>
+</table>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- PERSON PREVIEW (one person's TA, day by day) -->
+<div class="overlay" id="personPreviewOverlay">
+<div aria-labelledby="personPreviewTitle" aria-modal="true" class="ui-dialog-panel person-dialog" role="dialog">
+<div class="ui-dialog-head">
+<div class="min-w-0">
+<h3 class="ui-dialog-title" id="personPreviewTitle">TA</h3>
+<p class="mt-0.5 text-[12px] text-ink-3" id="personPreviewSub"></p>
+</div>
+<button aria-label="Close" class="btn-close ui-icon-button" id="btnPersonPreviewClose" type="button"><i data-lucide="x"></i></button>
+</div>
+<div class="ui-dialog-body" id="personPreviewBody"></div>
+<div class="ui-dialog-foot">
+<button class="btn btn-primary ui-action" id="btnPersonPreviewEdit" type="button">Edit</button>
+</div>
+</div>
+</div>
+<div class="overlay" id="availOverlay">
+<div aria-describedby="availName" aria-labelledby="availTitle" aria-modal="true" class="ui-dialog-panel availability-dialog" role="dialog">
+<div class="ui-dialog-head">
+<div class="min-w-0">
+<h3 class="ui-dialog-title" id="availTitle">TA Generator</h3>
+<p class="mt-0.5 truncate text-[12px] text-ink-3" id="availName"></p>
+</div>
+<button aria-label="Close" class="btn-close ui-icon-button" id="btnAvailClose" type="button"><i data-lucide="x"></i></button>
+</div>
+<form class="ui-dialog-body" id="availForm" onsubmit="return false">
+<div id="availDays"></div>
+<p class="field-label mb-1.5 mt-3" id="availOutputLabel">Generated TA</p>
+<div aria-labelledby="availOutputLabel" aria-live="polite" class="av-output" id="availOutput"></div>
+<p class="mt-2 text-[12px] font-bold text-red-600" hidden="" id="availHint" role="status"></p>
+</form>
+<div class="ui-dialog-foot">
+<button class="btn btn-secondary ui-action" id="btnAvailClear" type="button">Clear all</button>
+<div class="flex gap-2">
+<button class="btn btn-secondary ui-action" id="btnAvailCancel" type="button">Cancel</button>
+<button class="btn btn-primary ui-action" id="btnAvailSave" type="button">Save and download</button>
+</div>
+</div>
+</div>
+</div>
+<div class="overlay" id="requestOffOverlay">
+<div aria-describedby="requestOffPerson" aria-labelledby="requestOffDialogTitle" aria-modal="true" class="ui-dialog-panel request-off-dialog" role="dialog">
+<div class="ui-dialog-head">
+<div class="min-w-0">
+<h3 class="ui-dialog-title" id="requestOffDialogTitle">Request Off</h3>
+<p id="requestOffPerson"></p>
+</div>
+<button aria-label="Close" class="btn-close ui-icon-button" id="btnRequestOffClose" type="button"><i data-lucide="x"></i></button>
+</div>
+<div class="ui-dialog-body" id="requestOffBody">
+<p class="av-off-note" id="requestOffNote">Only the date is saved. The reason and image stay on this device.</p>
+<p class="av-off-note">Submitting downloads the image, then you can share it or open Messenger. Only the date is saved.</p>
+<div class="av-off-field">
+<label class="field-label" for="offDate">Date off <span aria-hidden="true">*</span></label>
+<input aria-describedby="offError" class="av-off-input" id="offDate" required="" type="date"/>
+</div>
+<div class="av-off-field">
+<label class="field-label" for="offReason">Reason <span aria-hidden="true">*</span></label>
+<textarea aria-describedby="offError" class="av-off-input av-off-reason" id="offReason" maxlength="300" required="" rows="3"></textarea>
+</div>
+<p class="av-off-error" hidden="" id="offError" role="status"></p>
+<p class="av-off-fallback" hidden="" id="offFallback">If Messenger did not open, <a href="https://m.me/luwenprangko" rel="noopener" target="_blank">open it here</a>, then paste the copied image.</p>
+<div class="av-off-done" hidden="" id="offDone" role="group" aria-labelledby="offDoneTitle">
+<p class="field-label" id="offDoneTitle" role="status">Request saved. Image downloaded.</p>
+<p class="av-off-note">Send the image with any app, or open Messenger and attach it.</p>
+<div class="av-off-actions">
+<button class="btn btn-secondary ui-action" id="btnRequestOffShare" type="button">Share General</button>
+<button class="btn btn-primary ui-action" id="btnRequestOffMessenger" type="button">Messenger</button>
+</div>
+<p class="av-off-fallback" hidden="" id="offShareNote" role="status"></p>
+</div>
+</div>
+<div class="ui-dialog-foot">
+<button class="btn btn-secondary ui-action" id="btnRequestOffCancel" type="button">Cancel</button>
+<button class="btn btn-primary ui-action" id="btnRequestOff" type="button">Submit request</button>
+</div>
+</div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/13.3.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/13.3.0/firebase-database-compat.js"></script>
+<script src="./ui-controls.js"></script>
+<script src="./request-off.js"></script>
+<script src="./app.js"></script>
+<script src="./accessibility.js"></script></body>
+</html>
+
